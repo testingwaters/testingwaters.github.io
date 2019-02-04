@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+<html><head data-gwd-animation-mode="proMode"><meta name="GCD" content="YTk3ODQ3ZWZhN2I4NzZmMzBkNTEwYjJld49143caf38be0d3b18417644fa0ffa3"/>
+  
+  <script data-source="custom.elements.min.js" type="text/javascript">/**
+ * @license
+ * Copyright (c) 2012 The Polymer Authors. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are
+ * met:
+ *
+ *    * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ *    * Redistributions in binary form must reproduce the above
+ * copyright notice, this list of conditions and the following disclaimer
+ * in the documentation and/or other materials provided with the
+ * distribution.
+ *    * Neither the name of Google Inc. nor the names of its
+ * contributors may be used to endorse or promote products derived from
+ * this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+// @version v0.0.20140401
+
+"undefined"==typeof WeakMap&&!function(){var a=Object.defineProperty,b=Date.now()%1e9,c=function(){this.name="__st"+(1e9*Math.random()>>>0)+(b++ +"__")};c.prototype={set:function(b,c){var d=b[this.name];d&&d[0]===b?d[1]=c:a(b,this.name,{value:[b,c],writable:!0})},get:function(a){var b;return(b=a[this.name])&&b[0]===a?b[1]:void 0},"delete":function(a){this.set(a,void 0)}},window.WeakMap=c}(),function(a){function b(a){u.push(a),t||(t=!0,q(d))}function c(a){return window.ShadowDOMPolyfill&&window.ShadowDOMPolyfill.wrapIfNeeded(a)||a}function d(){t=!1;var a=u;u=[],a.sort(function(a,b){return a.uid_-b.uid_});var b=!1;a.forEach(function(a){var c=a.takeRecords();e(a),c.length&&(a.callback_(c,a),b=!0)}),b&&d()}function e(a){a.nodes_.forEach(function(b){var c=p.get(b);c&&c.forEach(function(b){b.observer===a&&b.removeTransientObservers()})})}function f(a,b){for(var c=a;c;c=c.parentNode){var d=p.get(c);if(d)for(var e=0;e<d.length;e++){var f=d[e],g=f.options;if(c===a||g.subtree){var h=b(g);h&&f.enqueue(h)}}}}function g(a){this.callback_=a,this.nodes_=[],this.records_=[],this.uid_=++v}function h(a,b){this.type=a,this.target=b,this.addedNodes=[],this.removedNodes=[],this.previousSibling=null,this.nextSibling=null,this.attributeName=null,this.attributeNamespace=null,this.oldValue=null}function i(a){var b=new h(a.type,a.target);return b.addedNodes=a.addedNodes.slice(),b.removedNodes=a.removedNodes.slice(),b.previousSibling=a.previousSibling,b.nextSibling=a.nextSibling,b.attributeName=a.attributeName,b.attributeNamespace=a.attributeNamespace,b.oldValue=a.oldValue,b}function j(a,b){return w=new h(a,b)}function k(a){return x?x:(x=i(w),x.oldValue=a,x)}function l(){w=x=void 0}function m(a){return a===x||a===w}function n(a,b){return a===b?a:x&&m(a)?x:null}function o(a,b,c){this.observer=a,this.target=b,this.options=c,this.transientObservedNodes=[]}var p=new WeakMap,q=window.msSetImmediate;if(!q){var r=[],s=String(Math.random());window.addEventListener("message",function(a){if(a.data===s){var b=r;r=[],b.forEach(function(a){a()})}}),q=function(a){r.push(a),window.postMessage(s,"*")}}var t=!1,u=[],v=0;g.prototype={observe:function(a,b){if(a=c(a),!b.childList&&!b.attributes&&!b.characterData||b.attributeOldValue&&!b.attributes||b.attributeFilter&&b.attributeFilter.length&&!b.attributes||b.characterDataOldValue&&!b.characterData)throw new SyntaxError;var d=p.get(a);d||p.set(a,d=[]);for(var e,f=0;f<d.length;f++)if(d[f].observer===this){e=d[f],e.removeListeners(),e.options=b;break}e||(e=new o(this,a,b),d.push(e),this.nodes_.push(a)),e.addListeners()},disconnect:function(){this.nodes_.forEach(function(a){for(var b=p.get(a),c=0;c<b.length;c++){var d=b[c];if(d.observer===this){d.removeListeners(),b.splice(c,1);break}}},this),this.records_=[]},takeRecords:function(){var a=this.records_;return this.records_=[],a}};var w,x;o.prototype={enqueue:function(a){var c=this.observer.records_,d=c.length;if(c.length>0){var e=c[d-1],f=n(e,a);if(f)return void(c[d-1]=f)}else b(this.observer);c[d]=a},addListeners:function(){this.addListeners_(this.target)},addListeners_:function(a){var b=this.options;b.attributes&&a.addEventListener("DOMAttrModified",this,!0),b.characterData&&a.addEventListener("DOMCharacterDataModified",this,!0),b.childList&&a.addEventListener("DOMNodeInserted",this,!0),(b.childList||b.subtree)&&a.addEventListener("DOMNodeRemoved",this,!0)},removeListeners:function(){this.removeListeners_(this.target)},removeListeners_:function(a){var b=this.options;b.attributes&&a.removeEventListener("DOMAttrModified",this,!0),b.characterData&&a.removeEventListener("DOMCharacterDataModified",this,!0),b.childList&&a.removeEventListener("DOMNodeInserted",this,!0),(b.childList||b.subtree)&&a.removeEventListener("DOMNodeRemoved",this,!0)},addTransientObserver:function(a){if(a!==this.target){this.addListeners_(a),this.transientObservedNodes.push(a);var b=p.get(a);b||p.set(a,b=[]),b.push(this)}},removeTransientObservers:function(){var a=this.transientObservedNodes;this.transientObservedNodes=[],a.forEach(function(a){this.removeListeners_(a);for(var b=p.get(a),c=0;c<b.length;c++)if(b[c]===this){b.splice(c,1);break}},this)},handleEvent:function(a){switch(a.stopImmediatePropagation(),a.type){case"DOMAttrModified":var b=a.attrName,c=a.relatedNode.namespaceURI,d=a.target,e=new j("attributes",d);e.attributeName=b,e.attributeNamespace=c;var g=a.attrChange===MutationEvent.ADDITION?null:a.prevValue;f(d,function(a){return!a.attributes||a.attributeFilter&&a.attributeFilter.length&&-1===a.attributeFilter.indexOf(b)&&-1===a.attributeFilter.indexOf(c)?void 0:a.attributeOldValue?k(g):e});break;case"DOMCharacterDataModified":var d=a.target,e=j("characterData",d),g=a.prevValue;f(d,function(a){return a.characterData?a.characterDataOldValue?k(g):e:void 0});break;case"DOMNodeRemoved":this.addTransientObserver(a.target);case"DOMNodeInserted":var h,i,d=a.relatedNode,m=a.target;"DOMNodeInserted"===a.type?(h=[m],i=[]):(h=[],i=[m]);var n=m.previousSibling,o=m.nextSibling,e=j("childList",d);e.addedNodes=h,e.removedNodes=i,e.previousSibling=n,e.nextSibling=o,f(d,function(a){return a.childList?e:void 0})}l()}},a.JsMutationObserver=g,a.MutationObserver||(a.MutationObserver=g)}(this),window.CustomElements=window.CustomElements||{flags:{}},function(a){function b(a,c,d){var e=a.firstElementChild;if(!e)for(e=a.firstChild;e&&e.nodeType!==Node.ELEMENT_NODE;)e=e.nextSibling;for(;e;)c(e,d)!==!0&&b(e,c,d),e=e.nextElementSibling;return null}function c(a,b){for(var c=a.shadowRoot;c;)d(c,b),c=c.olderShadowRoot}function d(a,d){b(a,function(a){return d(a)?!0:void c(a,d)}),c(a,d)}function e(a){return h(a)?(i(a),!0):void l(a)}function f(a){d(a,function(a){return e(a)?!0:void 0})}function g(a){return e(a)||f(a)}function h(b){if(!b.__upgraded__&&b.nodeType===Node.ELEMENT_NODE){var c=b.getAttribute("is")||b.localName,d=a.registry[c];if(d)return A.dom&&console.group("upgrade:",b.localName),a.upgrade(b),A.dom&&console.groupEnd(),!0}}function i(a){l(a),r(a)&&d(a,function(a){l(a)})}function j(a){if(E.push(a),!D){D=!0;var b=window.Platform&&window.Platform.endOfMicrotask||setTimeout;b(k)}}function k(){D=!1;for(var a,b=E,c=0,d=b.length;d>c&&(a=b[c]);c++)a();E=[]}function l(a){C?j(function(){m(a)}):m(a)}function m(a){(a.attachedCallback||a.detachedCallback||a.__upgraded__&&A.dom)&&(A.dom&&console.group("inserted:",a.localName),r(a)&&(a.__inserted=(a.__inserted||0)+1,a.__inserted<1&&(a.__inserted=1),a.__inserted>1?A.dom&&console.warn("inserted:",a.localName,"insert/remove count:",a.__inserted):a.attachedCallback&&(A.dom&&console.log("inserted:",a.localName),a.attachedCallback())),A.dom&&console.groupEnd())}function n(a){o(a),d(a,function(a){o(a)})}function o(a){C?j(function(){p(a)}):p(a)}function p(a){(a.attachedCallback||a.detachedCallback||a.__upgraded__&&A.dom)&&(A.dom&&console.group("removed:",a.localName),r(a)||(a.__inserted=(a.__inserted||0)-1,a.__inserted>0&&(a.__inserted=0),a.__inserted<0?A.dom&&console.warn("removed:",a.localName,"insert/remove count:",a.__inserted):a.detachedCallback&&a.detachedCallback()),A.dom&&console.groupEnd())}function q(a){return window.ShadowDOMPolyfill?ShadowDOMPolyfill.wrapIfNeeded(a):a}function r(a){for(var b=a,c=q(document);b;){if(b==c)return!0;b=b.parentNode||b.host}}function s(a){if(a.shadowRoot&&!a.shadowRoot.__watched){A.dom&&console.log("watching shadow-root for: ",a.localName);for(var b=a.shadowRoot;b;)t(b),b=b.olderShadowRoot}}function t(a){a.__watched||(w(a),a.__watched=!0)}function u(a){if(A.dom){var b=a[0];if(b&&"childList"===b.type&&b.addedNodes&&b.addedNodes){for(var c=b.addedNodes[0];c&&c!==document&&!c.host;)c=c.parentNode;var d=c&&(c.URL||c._URL||c.host&&c.host.localName)||"";d=d.split("/?").shift().split("/").pop()}console.group("mutations (%d) [%s]",a.length,d||"")}a.forEach(function(a){"childList"===a.type&&(G(a.addedNodes,function(a){a.localName&&g(a)}),G(a.removedNodes,function(a){a.localName&&n(a)}))}),A.dom&&console.groupEnd()}function v(){u(F.takeRecords()),k()}function w(a){F.observe(a,{childList:!0,subtree:!0})}function x(a){w(a)}function y(a){A.dom&&console.group("upgradeDocument: ",a.baseURI.split("/").pop()),g(a),A.dom&&console.groupEnd()}function z(a){a=q(a);for(var b,c=a.querySelectorAll("link[rel="+B+"]"),d=0,e=c.length;e>d&&(b=c[d]);d++)b.import&&b.import.__parsed&&z(b.import);y(a)}var A=window.logFlags||{},B=window.HTMLImports?HTMLImports.IMPORT_LINK_TYPE:"none",C=!window.MutationObserver||window.MutationObserver===window.JsMutationObserver;a.hasPolyfillMutations=C;var D=!1,E=[],F=new MutationObserver(u),G=Array.prototype.forEach.call.bind(Array.prototype.forEach);a.IMPORT_LINK_TYPE=B,a.watchShadow=s,a.upgradeDocumentTree=z,a.upgradeAll=g,a.upgradeSubtree=f,a.insertedNode=i,a.observeDocument=x,a.upgradeDocument=y,a.takeRecords=v}(window.CustomElements),function(a){function b(b,g){var h=g||{};if(!b)throw new Error("document.registerElement: first argument `name` must not be empty");if(b.indexOf("-")<0)throw new Error("document.registerElement: first argument ('name') must contain a dash ('-'). Argument provided was '"+String(b)+"'.");if(c(b))throw new Error("Failed to execute 'registerElement' on 'Document': Registration failed for type '"+String(b)+"'. The type name is invalid.");if(n(b))throw new Error("DuplicateDefinitionError: a type with name '"+String(b)+"' is already registered");if(!h.prototype)throw new Error("Options missing required prototype property");return h.__name=b.toLowerCase(),h.lifecycle=h.lifecycle||{},h.ancestry=d(h.extends),e(h),f(h),l(h.prototype),o(h.__name,h),h.ctor=p(h),h.ctor.prototype=h.prototype,h.prototype.constructor=h.ctor,a.ready&&a.upgradeDocumentTree(document),h.ctor}function c(a){for(var b=0;b<y.length;b++)if(a===y[b])return!0}function d(a){var b=n(a);return b?d(b.extends).concat([b]):[]}function e(a){for(var b,c=a.extends,d=0;b=a.ancestry[d];d++)c=b.is&&b.tag;a.tag=c||a.__name,c&&(a.is=a.__name)}function f(a){if(!Object.__proto__){var b=HTMLElement.prototype;if(a.is){var c=document.createElement(a.tag);b=Object.getPrototypeOf(c)}for(var d,e=a.prototype;e&&e!==b;){var d=Object.getPrototypeOf(e);e.__proto__=d,e=d}}a.native=b}function g(a){return h(B(a.tag),a)}function h(b,c){return c.is&&b.setAttribute("is",c.is),b.removeAttribute("unresolved"),i(b,c),b.__upgraded__=!0,k(b),a.insertedNode(b),a.upgradeSubtree(b),b}function i(a,b){Object.__proto__?a.__proto__=b.prototype:(j(a,b.prototype,b.native),a.__proto__=b.prototype)}function j(a,b,c){for(var d={},e=b;e!==c&&e!==HTMLElement.prototype;){for(var f,g=Object.getOwnPropertyNames(e),h=0;f=g[h];h++)d[f]||(Object.defineProperty(a,f,Object.getOwnPropertyDescriptor(e,f)),d[f]=1);e=Object.getPrototypeOf(e)}}function k(a){a.createdCallback&&a.createdCallback()}function l(a){if(!a.setAttribute._polyfilled){var b=a.setAttribute;a.setAttribute=function(a,c){m.call(this,a,c,b)};var c=a.removeAttribute;a.removeAttribute=function(a){m.call(this,a,null,c)},a.setAttribute._polyfilled=!0}}function m(a,b,c){var d=this.getAttribute(a);c.apply(this,arguments);var e=this.getAttribute(a);this.attributeChangedCallback&&e!==d&&this.attributeChangedCallback(a,d,e)}function n(a){return a?z[a.toLowerCase()]:void 0}function o(a,b){z[a]=b}function p(a){return function(){return g(a)}}function q(a,b,c){return a===A?r(b,c):C(a,b)}function r(a,b){var c=n(b||a);if(c){if(a==c.tag&&b==c.is)return new c.ctor;if(!b&&!c.is)return new c.ctor}if(b){var d=r(a);return d.setAttribute("is",b),d}var d=B(a);return a.indexOf("-")>=0&&i(d,HTMLElement),d}function s(a){if(!a.__upgraded__&&a.nodeType===Node.ELEMENT_NODE){var b=a.getAttribute("is"),c=n(b||a.localName);if(c){if(b&&c.tag==a.localName)return h(a,c);if(!b&&!c.extends)return h(a,c)}}}function t(b){var c=D.call(this,b);return a.upgradeAll(c),c}a||(a=window.CustomElements={flags:{}});var u=a.flags,v=Boolean(document.registerElement),w=!u.register&&v&&!window.ShadowDOMPolyfill;if(w){var x=function(){};a.registry={},a.upgradeElement=x,a.watchShadow=x,a.upgrade=x,a.upgradeAll=x,a.upgradeSubtree=x,a.observeDocument=x,a.upgradeDocument=x,a.upgradeDocumentTree=x,a.takeRecords=x,a.reservedTagList=[]}else{var y=["annotation-xml","color-profile","font-face","font-face-src","font-face-uri","font-face-format","font-face-name","missing-glyph"],z={},A="http://www.w3.org/1999/xhtml",B=document.createElement.bind(document),C=document.createElementNS.bind(document),D=Node.prototype.cloneNode;document.registerElement=b,document.createElement=r,document.createElementNS=q,Node.prototype.cloneNode=t,a.registry=z,a.upgrade=s}var E;E=Object.__proto__||w?function(a,b){return a instanceof b}:function(a,b){for(var c=a;c;){if(c===b.prototype)return!0;c=c.__proto__}return!1},a.instanceof=E,a.reservedTagList=y,document.register=document.registerElement,a.hasNative=v,a.useNative=w}(window.CustomElements),function(a){function b(a){return"link"===a.localName&&a.getAttribute("rel")===c}var c=a.IMPORT_LINK_TYPE,d={selectors:["link[rel="+c+"]"],map:{link:"parseLink"},parse:function(a){if(!a.__parsed){a.__parsed=!0;var b=a.querySelectorAll(d.selectors);e(b,function(a){d[d.map[a.localName]](a)}),CustomElements.upgradeDocument(a),CustomElements.observeDocument(a)}},parseLink:function(a){b(a)&&this.parseImport(a)},parseImport:function(a){a.import&&d.parse(a.import)}},e=Array.prototype.forEach.call.bind(Array.prototype.forEach);a.parser=d,a.IMPORT_LINK_TYPE=c}(window.CustomElements),function(a){function b(){CustomElements.parser.parse(document),CustomElements.upgradeDocument(document);var a=window.Platform&&Platform.endOfMicrotask?Platform.endOfMicrotask:setTimeout;a(function(){CustomElements.ready=!0,CustomElements.readyTime=Date.now(),window.HTMLImports&&(CustomElements.elapsed=CustomElements.readyTime-HTMLImports.readyTime),document.dispatchEvent(new CustomEvent("WebComponentsReady",{bubbles:!0})),window.HTMLImports&&(HTMLImports.__importsParsingHook=function(a){CustomElements.parser.parse(a.import)})})}if("function"!=typeof window.CustomEvent&&(window.CustomEvent=function(a){var b=document.createEvent("HTMLEvents");return b.initEvent(a,!0,!0),b}),"complete"===document.readyState||a.flags.eager)b();else if("interactive"!==document.readyState||window.attachEvent||window.HTMLImports&&!window.HTMLImports.ready){var c=window.HTMLImports&&!HTMLImports.ready?"HTMLImportsLoaded":"DOMContentLoaded";window.addEventListener(c,b)}else b()}(window.CustomElements);
+</script>
+  <title>undefined</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Google Web Designer 1.2.1.0121">
+  <style type="text/css">html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+}
+body {
+    -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -moz-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -webkit-perspective: 1400px;
+    -moz-perspective: 1400px;
+    perspective: 1400px;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    background-image: url(http://www.testingwaters.net/_/rsrc/1373812492331/home/twa-architecture.jpg);
+    background-color: transparent;
+    background-size: 100% 100%;
+}
+[data-gwd-group="logoTWA"] .gwd-grp-s4qh.gwd-canvas-728q {
+    position: absolute;
+    -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -moz-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    width: 75.75px;
+    height: 154.25px;
+    left: -0.375px;
+    top: 0.375px;
+}
+[data-gwd-group="logoTWA"] .gwd-grp-s4qh.gwd-canvas-805p {
+    position: absolute;
+    -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -moz-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    width: 61.5px;
+    height: 125.75px;
+    left: 14.75px;
+    top: 15.5px;
+}
+[data-gwd-group="logoTWA"] .gwd-grp-s4qh.gwd-canvas-dun8 {
+    position: absolute;
+    -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -moz-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    width: 46.75px;
+    height: 95.5px;
+    left: 29px;
+    top: 30.75px;
+}
+[data-gwd-group="logoTWA"] .gwd-grp-s4qh.gwd-canvas-9w67 {
+    position: absolute;
+    -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -moz-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    width: 33.5625px;
+    height: 67.75px;
+    left: 42.8125px;
+    top: 43.625px;
+}
+[data-gwd-group="logoTWA"] .gwd-grp-s4qh.gwd-canvas-w19m {
+    position: absolute;
+    -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -moz-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    width: 17.75px;
+    height: 38.5px;
+    left: 58.625px;
+    top: 58.75px;
+}
+[data-gwd-group="logoTWA"] .gwd-grp-s4qh.gwd-canvas-r11a {
+    position: absolute;
+    -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -moz-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    width: 11.5px;
+    height: 10.75px;
+    left: 72.75px;
+    top: 72.625px;
+}
+[data-gwd-group="logoTWA"] .gwd-grp-s4qh.gwd-canvas-qays {
+    position: absolute;
+    -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -moz-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    width: 33px;
+    height: 68.25px;
+    left: 80.375px;
+    top: 43.375px;
+}
+[data-gwd-group="logoTWA"] .gwd-grp-s4qh.gwd-canvas-0wdi {
+    position: absolute;
+    -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -moz-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    width: 19px;
+    height: 38.3125px;
+    left: 79.5px;
+    top: 58.3125px;
+}
+[data-gwd-group="logoTWA"] .gwd-grp-s4qh.gwd-canvas-9vk5 {
+    position: absolute;
+    -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -moz-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    width: 48.25px;
+    height: 96.5px;
+    left: 80.25px;
+    top: 29.75px;
+}
+[data-gwd-group="logoTWA"] .gwd-grp-s4qh.gwd-canvas-uqb1 {
+    position: absolute;
+    -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -moz-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    width: 62.5px;
+    height: 125px;
+    left: 79.125px;
+    top: 14.5px;
+}
+[data-gwd-group="logoTWA"] .gwd-grp-s4qh.gwd-canvas-ui9y {
+    position: absolute;
+    -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -moz-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    width: 76.25px;
+    height: 154.25px;
+    left: 80.375px;
+    top: 0.375px;
+}
+[data-gwd-group="logoTWA"] .gwd-grp-s4qh.gwd-canvas-0tih {
+    position: absolute;
+    -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -moz-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    width: 141.75px;
+    height: 71.75px;
+    left: 7.625px;
+    top: 84.125px;
+}
+.gwd-div-2m17 {
+    position: absolute;
+    left: 20px;
+    top: 325px;
+}
+.gwd-div-j2tj {
+    position: absolute;
+    left: 20px;
+    top: 31px;
+    font-family: Arial;
+    text-align: left;
+    width: 150px;
+    padding: 5px;
+    height: 20px;
+    background-image: none;
+    background-color: rgba(102, 102, 102, 0.498039);
+}
+.gwd-span-lk9m {
+    font-size: 16px;
+    font-weight: normal;
+}
+.editable {
+    width: 150px;
+}
+.gwd-span-bx6o {
+    width: auto;
+}
+.gwd-div-a931 {
+    top: 100px;
+}
+.gwd-div-mxo4 {
+    left: 20px;
+    top: 25px;
+}
+.gwd-div-0z7j {
+    width: 150px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-size: 18px;
+    height: 25px;
+    top: 570px;
+}
+.gwd-span-0rxy {
+    width: auto;
+}
+.gwd-span-hrhi {
+    color: rgb(204, 204, 204);
+}
+.gwd-span-4pwv {
+    color: rgb(204, 204, 204);
+}
+.gwd-span-q2yf {
+    color: rgb(204, 204, 204);
+}
+[data-gwd-group="logoTWA"] .gwd-grp-s4qh.gwd-div-s7fs {
+    position: absolute;
+    width: 141px;
+    height: 51px;
+    font-family: Arial;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    font-weight: bold;
+    left: 5px;
+    top: 160px;
+}
+.gwd-span-jaqt {
+    font-size: 23px;
+}
+.gwd-span-f57e {
+    font-size: 23px;
+}
+.gwd-div-j4oq {
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    height: 25px;
+    top: 645px;
+}
+.gwd-div-35ct {
+    width: 150px;
+    left: 50px;
+    top: 100px;
+}
+.gwd-span-h6gm {
+    width: auto;
+}
+.gwd-div-g8op {
+    width: 150px;
+    top: 175px;
+}
+.gwd-span-f46c {
+    width: auto;
+}
+.gwd-div-gshl {
+    width: 130.39px;
+    top: 250px;
+    font-size: 18px;
+    height: 25px;
+    left: -150px;
+    opacity: 0;
+    background-image: none;
+    background-color: rgba(0, 204, 204, 0.45098);
+}
+.gwd-span-1vcr {
+    width: auto;
+}
+.gwd-div-yu19 {
+    height: 50px;
+    border-width: 1px;
+    border-style: solid;
+    opacity: 1;
+    left: 20px;
+    top: 20px;
+    width: 150px;
+    background-image: none;
+    background-color: rgb(93, 173, 156);
+}
+.gwd-span-07m2 {
+    color: rgb(255, 255, 255);
+}
+.gwd-span-rt2o {
+    color: rgb(255, 255, 255);
+}
+.gwd-span-w6ui {
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+}
+.gwd-span-psou {
+    color: rgb(255, 255, 255);
+}
+.gwd-div-g4jg {
+    width: 130.39px;
+    font-size: 18px;
+    height: 25px;
+    left: -150px;
+    top: 185px;
+    opacity: 0;
+    background-image: none;
+    background-color: rgba(0, 204, 204, 0.45098);
+}
+.gwd-div-mszy {
+    width: 130.39px;
+    font-size: 19px;
+    height: 25px;
+    top: 110px;
+    opacity: 0;
+    left: -150px;
+    background-image: none;
+    background-color: rgba(0, 204, 204, 0.45098);
+}
+.gwd-span-txuq {
+    font-family: Verdana;
+    font-weight: normal;
+    font-size: 20px;
+}
+.gwd-div-4ab7 {
+    text-align: left;
+}
+.gwd-span-zcb5 {
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    font-weight: bold;
+}
+.gwd-div-79rj {
+    text-align: left;
+}
+.gwd-div-j9pa {
+    position: absolute;
+    opacity: 0;
+    top: 0.0499999999999998px;
+    height: 800px;
+    width: 150px;
+    left: -150px;
+}
+.gwd-div-cnh3 {
+    position: absolute;
+    opacity: 0;
+    top: -0.5px;
+    height: 800px;
+    width: 150px;
+    left: -150px;
+}
+.gwd-div-og4b {
+    position: absolute;
+    opacity: 0;
+    top: 0px;
+    height: 800px;
+    width: 150px;
+    left: -150px;
+}
+.gwd-div-0w67 {
+    position: absolute;
+    opacity: 0;
+    height: 800px;
+    width: 150px;
+    top: -0.5px;
+    left: -150px;
+}
+.gwd-map-7vtp {
+    position: absolute;
+    height: 100%;
+    opacity: 0;
+    color: rgb(0, 0, 0);
+    font-family: Arial;
+    top: 0px;
+    width: 100%;
+    left: -2000px;
+}
+.gwd-div-433q {
+    position: absolute;
+    font-family: Arial;
+    width: 150px;
+    padding: 5px;
+    text-align: justify;
+    color: rgb(0, 0, 0);
+    opacity: 0;
+    left: 21.122675386px;
+    height: 150px;
+    top: 120px;
+    background-image: none;
+    background-color: rgba(153, 153, 153, 0.498039);
+}
+.gwd-span-9911 {
+    font-size: 22px;
+}
+.gwd-span-nen2 {
+    font-size: 22px;
+}
+.gwd-span-f89s {
+    font-size: 22px;
+}
+.gwd-span-81cu {
+    font-size: 22px;
+}
+.gwd-span-1mhu {
+    font-size: 22px;
+}
+.gwd-span-1jde {
+    font-size: 22px;
+}
+.gwd-span-9rmw {
+    font-size: 22px;
+}
+.gwd-span-pfbs {
+    width: auto;
+}
+.gwd-div-263h {
+    height: 26px;
+    width: 150px;
+}
+.gwd-span-qk7s {
+    width: auto;
+}
+.gwd-br-kydc {
+    width: auto;
+}
+.gwd-div-8smw {
+    height: 26px;
+    width: 150px;
+}
+.gwd-span-b9xd {
+    width: auto;
+}
+.gwd-br-7svt {
+    width: auto;
+}
+.gwd-div-yn6x {
+    height: 26px;
+    width: 150px;
+}
+.gwd-span-ivth {
+    width: auto;
+}
+.gwd-br-9ce5 {
+    width: auto;
+}
+.gwd-div-prxv {
+    height: 26px;
+    width: 150px;
+}
+.gwd-span-w1rm {
+    width: auto;
+}
+.gwd-div-b0tg {
+    height: 26px;
+    width: 150px;
+}
+.gwd-span-jx77 {
+    width: auto;
+}
+.gwd-div-g30u {
+    height: 26px;
+    width: 150px;
+}
+.gwd-span-v3m3 {
+    width: auto;
+}
+.gwd-span-rn1q {
+    font-family: Verdana;
+    font-size: 20px;
+    font-weight: normal;
+}
+.gwd-span-ev6x {
+    color: rgb(255, 255, 255);
+    font-family: Verdana;
+    font-size: 20px;
+}
+.gwd-span-mly5 {
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    font-family: Verdana;
+}
+.gwd-div-s1jb {
+    position: absolute;
+    font-family: Arial;
+    text-align: left;
+    font-size: 10px;
+    height: 10px;
+    width: 35px;
+    -webkit-transform: matrix3d(0.0043181416, -0.9999906768, 0, 0, 0.9999906768, 0.0043181416, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -moz-transform: matrix3d(0.0043181416, -0.9999906768, 0, 0, 0.9999906768, 0.0043181416, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    transform: matrix3d(0.0043181416, -0.9999906768, 0, 0, 0.9999906768, 0.0043181416, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    left: 8px;
+    top: 262px;
+    opacity: 0;
+    border-radius: 0px;
+    background-image: none;
+    background-color: rgb(0, 0, 0);
+}
+.gwd-span-5dg2 {
+    color: rgb(204, 204, 204);
+}
+.gwd-div-dl1w {
+    text-align: center;
+}
+.gwd-span-6f02 {
+    color: rgb(204, 204, 204);
+}
+.gwd-span-bwnl {
+    font-size: 19px;
+}
+.gwd-span-2gar {
+    font-size: 19px;
+}
+.gwd-span-ki0s {
+    font-size: 19px;
+}
+.gwd-span-tcb3 {
+    font-size: 18px;
+}
+.gwd-span-5k5q {
+    font-size: 18px;
+}
+.gwd-div-ptcr {
+    position: absolute;
+    text-align: left;
+    font-family: Arial;
+    font-size: 10px;
+    -webkit-transform: matrix3d(0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -moz-transform: matrix3d(0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    transform: matrix3d(0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    color: rgb(0, 0, 0);
+    border-radius: 0px;
+    border-width: 0px;
+    width: 60px;
+    top: 46px;
+    padding: 0px;
+    height: 10px;
+    left: 145px;
+    opacity: 0;
+    background-image: none;
+    background-color: rgb(0, 0, 0);
+}
+.gwd-div-yw5y {
+    text-align: center;
+}
+.gwd-strong-9f63 {
+    color: rgb(255, 255, 255);
+}
+.gwd-span-19em {
+    font-size: 16px;
+}
+.gwd-span-ok9h {
+    font-size: 16px;
+}
+.gwd-span-duy6 {
+    font-size: 16px;
+}
+.gwd-span-8kj4 {
+    font-size: 16px;
+}
+.gwd-span-d3es {
+    font-size: 16px;
+}
+.gwd-span-wjcu {
+    font-size: 16px;
+}
+.gwd-span-h455 {
+    font-size: 16px;
+}
+.gwd-span-tsgo {
+    font-size: 22px;
+}
+.gwd-div-03md {
+    width: 150px;
+    top: 715px;
+    color: rgb(0, 0, 0);
+    background-image: none;
+    background-color: rgba(102, 102, 102, 0.498039);
+}
+.gwd-span-o77v {
+    border-color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+    outline-color: rgb(255, 255, 255);
+    -webkit-column-rule-color: rgb(255, 255, 255);
+    -moz-column-rule-color: rgb(255, 255, 255);
+    column-rule-color: rgb(255, 255, 255);
+    -webkit-text-emphasis-color: rgb(255, 255, 255);
+    -moz-text-emphasis-color: rgb(255, 255, 255);
+    text-emphasis-color: rgb(255, 255, 255);
+    -webkit-text-fill-color: rgb(255, 255, 255);
+    -moz-text-fill-color: rgb(255, 255, 255);
+    text-fill-color: rgb(255, 255, 255);
+    -webkit-text-stroke-color: rgb(255, 255, 255);
+    -moz-text-stroke-color: rgb(255, 255, 255);
+    text-stroke-color: rgb(255, 255, 255);
+    width: auto;
+}
+.gwd-div-n8hs {
+    position: absolute;
+    opacity: 0;
+    top: 0px;
+    height: 800px;
+    width: 400px;
+    left: -400px;
+}
+.gwd-div-z7dq {
+    position: absolute;
+    opacity: 0;
+    top: 0px;
+    width: 400px;
+    height: 800px;
+    left: -400px;
+}
+.gwd-div-oocz {
+    width: 150px;
+    top: 790px;
+}
+.gwd-span-qwg3 {
+    width: auto;
+}
+.gwd-div-640p {
+    position: absolute;
+    width: 150px;
+    height: 48px;
+    left: 5px;
+    top: 5px;
+}
+.gwd-div-zgg5 {
+    position: absolute;
+    width: 77px;
+    height: 24px;
+    left: 5px;
+    top: 5px;
+}
+.gwd-div-econ {
+    left: 20px;
+    top: 645px;
+}
+.gwd-div-4vnc {
+    position: absolute;
+    width: 80px;
+    height: 24px;
+    left: 5px;
+    top: 5px;
+}
+.gwd-div-im14 {
+    position: absolute;
+    width: 95px;
+    height: 24px;
+    left: 5px;
+    top: 5px;
+}
+.gwd-div-jk4p {
+    position: absolute;
+    width: 71px;
+    height: 24px;
+    left: 5px;
+    top: 5px;
+}
+.gwd-div-5njy {
+    position: absolute;
+    width: 124px;
+    height: 20px;
+    left: 5.195px;
+    top: 6px;
+}
+.gwd-div-hscw {
+    position: absolute;
+    width: 135px;
+    height: 29px;
+    left: 1.195px;
+    top: 2px;
+}
+.gwd-div-ic0r {
+    position: absolute;
+    width: 138px;
+    height: 32px;
+    left: 0.195px;
+    top: 1px;
+}
+body .gwd-gen-rfgmgwdanimation {
+    -webkit-animation: gwd-gen-rfgmgwdanimation_gwd-keyframes 2.5s linear 0s infinite normal forwards;
+    -moz-animation: gwd-gen-rfgmgwdanimation_gwd-keyframes 2.5s linear 0s infinite normal forwards;
+    animation: gwd-gen-rfgmgwdanimation_gwd-keyframes 2.5s linear 0s infinite normal forwards;
+}
+body .gwd-gen-qv0rgwdanimation {
+    -webkit-animation: gwd-gen-qv0rgwdanimation_gwd-keyframes 3.5s linear 0s infinite normal forwards;
+    -moz-animation: gwd-gen-qv0rgwdanimation_gwd-keyframes 3.5s linear 0s infinite normal forwards;
+    animation: gwd-gen-qv0rgwdanimation_gwd-keyframes 3.5s linear 0s infinite normal forwards;
+}
+@-webkit-keyframes gwd-gen-qv0rgwdanimation_gwd-keyframes {
+    0% {
+        width: 150px;
+        -webkit-animation-timing-function: cubic-bezier(0.01, 1.995, 1, 1.455);
+    }
+    100% {
+        width: 139px;
+        -webkit-animation-timing-function: linear;
+    }
+}
+@-moz-keyframes gwd-gen-qv0rgwdanimation_gwd-keyframes {
+    0% {
+        width: 150px;
+        -moz-animation-timing-function: cubic-bezier(0.01, 1.995, 1, 1.455);
+    }
+    100% {
+        width: 139px;
+        -moz-animation-timing-function: linear;
+    }
+}
+@keyframes gwd-gen-qv0rgwdanimation_gwd-keyframes {
+    0% {
+        width: 150px;
+        animation-timing-function: cubic-bezier(0.01, 1.995, 1, 1.455);
+    }
+    100% {
+        width: 139px;
+        animation-timing-function: linear;
+    }
+}
+@-webkit-keyframes gwd-gen-rfgmgwdanimation_gwd-keyframes {
+    0% {
+        opacity: 0;
+        -webkit-animation-timing-function: linear;
+    }
+    20% {
+        opacity: 0;
+        -webkit-animation-timing-function: cubic-bezier(0, 1.99, 1, 0.005);
+    }
+    100% {
+        opacity: 1;
+        -webkit-animation-timing-function: linear;
+    }
+}
+@-moz-keyframes gwd-gen-rfgmgwdanimation_gwd-keyframes {
+    0% {
+        opacity: 0;
+        -moz-animation-timing-function: linear;
+    }
+    20% {
+        opacity: 0;
+        -moz-animation-timing-function: cubic-bezier(0, 1.99, 1, 0.005);
+    }
+    100% {
+        opacity: 1;
+        -moz-animation-timing-function: linear;
+    }
+}
+@keyframes gwd-gen-rfgmgwdanimation_gwd-keyframes {
+    0% {
+        opacity: 0;
+        animation-timing-function: linear;
+    }
+    20% {
+        opacity: 0;
+        animation-timing-function: cubic-bezier(0, 1.99, 1, 0.005);
+    }
+    100% {
+        opacity: 1;
+        animation-timing-function: linear;
+    }
+}
+body.gwd-pause-animation .gwd-gen-qv0rgwdanimation {
+    -webkit-animation-play-state: paused !important;
+    -moz-animation-play-state: paused !important;
+    animation-play-state: paused !important;
+}
+body.gwd-pause-animation .gwd-gen-rfgmgwdanimation {
+    -webkit-animation-play-state: paused !important;
+    -moz-animation-play-state: paused !important;
+    animation-play-state: paused !important;
+}
+@-webkit-keyframes gwd-gen-qv0rgwdanimation_gwd-keyframes_start {
+    0% {
+        width: 150px;
+        -webkit-animation-timing-function: cubic-bezier(0.01, 1.995, 1, 1.455);
+    }
+    100% {
+        width: 139px;
+        -webkit-animation-timing-function: linear;
+    }
+}
+@-moz-keyframes gwd-gen-qv0rgwdanimation_gwd-keyframes_start {
+    0% {
+        width: 150px;
+        -moz-animation-timing-function: cubic-bezier(0.01, 1.995, 1, 1.455);
+    }
+    100% {
+        width: 139px;
+        -moz-animation-timing-function: linear;
+    }
+}
+@keyframes gwd-gen-qv0rgwdanimation_gwd-keyframes_start {
+    0% {
+        width: 150px;
+        animation-timing-function: cubic-bezier(0.01, 1.995, 1, 1.455);
+    }
+    100% {
+        width: 139px;
+        animation-timing-function: linear;
+    }
+}
+body.start .gwd-gen-qv0rgwdanimation {
+    -webkit-animation: gwd-gen-qv0rgwdanimation_gwd-keyframes_start 3.5s linear 0s infinite normal forwards;
+    -moz-animation: gwd-gen-qv0rgwdanimation_gwd-keyframes_start 3.5s linear 0s infinite normal forwards;
+    animation: gwd-gen-qv0rgwdanimation_gwd-keyframes_start 3.5s linear 0s infinite normal forwards;
+}
+@-webkit-keyframes gwd-gen-rfgmgwdanimation_gwd-keyframes_start {
+    0% {
+        opacity: 0;
+        -webkit-animation-timing-function: linear;
+    }
+    20% {
+        opacity: 0;
+        -webkit-animation-timing-function: cubic-bezier(0, 1.99, 1, 0.005);
+    }
+    100% {
+        opacity: 1;
+        -webkit-animation-timing-function: linear;
+    }
+}
+@-moz-keyframes gwd-gen-rfgmgwdanimation_gwd-keyframes_start {
+    0% {
+        opacity: 0;
+        -moz-animation-timing-function: linear;
+    }
+    20% {
+        opacity: 0;
+        -moz-animation-timing-function: cubic-bezier(0, 1.99, 1, 0.005);
+    }
+    100% {
+        opacity: 1;
+        -moz-animation-timing-function: linear;
+    }
+}
+@keyframes gwd-gen-rfgmgwdanimation_gwd-keyframes_start {
+    0% {
+        opacity: 0;
+        animation-timing-function: linear;
+    }
+    20% {
+        opacity: 0;
+        animation-timing-function: cubic-bezier(0, 1.99, 1, 0.005);
+    }
+    100% {
+        opacity: 1;
+        animation-timing-function: linear;
+    }
+}
+body.start .gwd-gen-rfgmgwdanimation {
+    -webkit-animation: gwd-gen-rfgmgwdanimation_gwd-keyframes_start 2.5s linear 0s infinite normal forwards;
+    -moz-animation: gwd-gen-rfgmgwdanimation_gwd-keyframes_start 2.5s linear 0s infinite normal forwards;
+    animation: gwd-gen-rfgmgwdanimation_gwd-keyframes_start 2.5s linear 0s infinite normal forwards;
+}</style><style data-exports-type="gwd-map" data-gwd-node="true" type="text/css">gwd-map{display:block;visibility:hidden}gwd-map.ready{visibility:visible}gwd-map .hidden{display:none}gwd-map .sizer{position:relative;width:100%;height:100%}gwd-map .bg,gwd-map .map{position:absolute;width:100%;height:100%;bottom:0;left:0}gwd-map .bg{background:rgba(0,0,0,0.5)}gwd-map .ip .bg{background:rgba(255,255,255,0.75);height:auto}gwd-map .diag{background:#fff;bottom:0;position:absolute;width:100%;padding:20px 20px 12px;box-sizing:border-box;font-family:arial,helvetica,sans-serif}gwd-map .btns a{margin:5px;display:block;color:white;text-decoration:none;padding:10px;font-weight:bold;text-align:center;background-image:-webkit-gradient(linear,left bottom,left top,color-stop(0,rgb(35,155,205)),color-stop(1,rgb(38,169,224)));background-image:-moz-linear-gradient(bottom,rgb(35,155,205) 0%,rgb(38,169,224) 100%);background-image:-ms-linear-gradient(bottom,rgb(35,155,205) 0%,rgb(38,169,224) 100%);background-image:linear-gradient(bottom,rgb(35,155,205) 0%,rgb(38,169,224) 100%);-webkit-border-radius:1px;border-radius:1px}gwd-map .btns{margin-bottom:8px}gwd-map .diag form{margin-top:8px}gwd-map .diag input{font-size:16px;width:100%;margin-bottom:8px;-webkit-tap-highlight-color:rgba(0,0,0,0)}gwd-map .loading{position:absolute;top:50%;left:50%;margin-top:-7px;margin-left:-98px;border:2px solid white;-webkit-background-clip:padding-box;-webkit-border-radius:16px;border-radius:16px;min-width:196px;min-height:14px;padding:2px}gwd-map .loading>:first-child{height:100%;min-height:14px;-webkit-background-clip:padding-box;-webkit-border-radius:7px;-moz-border-radius:7px;border-radius:7px;width:100%;background-color:transparent;background-image:-webkit-gradient(linear,18 0,0 10,color-stop(0.23,rgba(0,0,0,0)),color-stop(0.3,rgba(255,255,255,0.796875)),color-stop(0.3,rgb(255,255,255)),color-stop(0.7,rgb(255,255,255)),color-stop(0.7,rgba(255,255,255,0.796875)),color-stop(0.77,rgba(0,0,0,0)));background-image:-moz-linear-gradient(68deg,rgba(0,0,0,0) 23%,rgba(255,255,255,0.796875) 30%,rgb(255,255,255) 30%,rgb(255,255,255) 70%,rgba(255,255,255,0.796875) 70%,rgba(0,0,0,0) 77%);background-image:-ms-linear-gradient(68deg,rgba(0,0,0,0) 23%,rgba(255,255,255,0.796875) 30%,rgb(255,255,255) 30%,rgb(255,255,255) 70%,rgba(255,255,255,0.796875) 70%,rgba(0,0,0,0) 77%);background-image:linear-gradient(68deg,rgba(0,0,0,0) 23%,rgba(255,255,255,0.796875) 30%,rgb(255,255,255) 30%,rgb(255,255,255) 70%,rgba(255,255,255,0.796875) 70%,rgba(0,0,0,0) 77%);-webkit-background-size:20px 15px;background-size:20px 15px;background-repeat:repeat-x;-webkit-animation:loading 0.5s linear infinite;animation:loading 0.5s linear infinite}@-webkit-keyframes loading{from{background-position:0px 0px}to{background-position:20px 0px}}@keyframes loading{from{background-position:0px 0px}to{background-position:20px 0px}}gwd-map .ip .dir div{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpGNzdGMTE3NDA3MjA2ODExODJFQ0JEQUY2RUQ1MTUyMiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpERkZDMjBGMEYzOEExMUUwQkRDQUFBMUM2NzBERDY4NSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpERkZDMjBFRkYzOEExMUUwQkRDQUFBMUM2NzBERDY4NSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkY3N0YxMTc0MDcyMDY4MTE4MkVDQkRBRjZFRDUxNTIyIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkY3N0YxMTc0MDcyMDY4MTE4MkVDQkRBRjZFRDUxNTIyIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Wy7K5gAAAThJREFUeNrcmNERgyAMhpEJOoIjOALdwBE6SjexG3QERtAR2gl0A0rvwh16XJVAwDR3/5MI3yUEQoTIZ4OVAQ3iRHax0h6ck4Zv1eHGAJzTWBNyD64q5FG4KpCxcEUhsXBFIFPhSCFzwZFA5obLCkkFlwWys5oJ4ZxmWKs43Bjh/SjIXJ7TgSIiGTJnWLU37w0L2WzgjlYgD6v3zpgXjIudf7G6Wk0pnlPEp8LKk5iwqoSjKzrcmD2HBbwjjiBUAviA6kCSfEP7xKwlYVNSmkuOHvHvIiFjqCB7gOswcMCWnMXqx/5Jvv4kLDIReBJbBKzOQel9mIjDHQ23BawNGbxBZGBgDcggHOt60FlboKJu//pNwuJVx+JdzKKzwKI3w6K7xaI/yKLDugd5CjjyLn9jjBFnto8AAwDi/14vXq4sUgAAAABJRU5ErkJggg==);background-size:cover;width:20px;height:20px;top:50%;margin:-10px;left:20px;position:absolute;cursor:pointer}gwd-map .ip .res{font-family:arial,helvetica,sans-serif;font-size:11px;line-height:14px;margin:4px 25px 4px 40px;white-space:pre-wrap}gwd-map .ip .title{font-size:13px;font-weight:bold}gwd-map .ip .close div{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBOUEwMTA4MzA0NkUxMUUzQjEwOENENzcyNzlEM0MwOSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBOUEwMTA4NDA0NkUxMUUzQjEwOENENzcyNzlEM0MwOSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkE5QTAxMDgxMDQ2RTExRTNCMTA4Q0Q3NzI3OUQzQzA5IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkE5QTAxMDgyMDQ2RTExRTNCMTA4Q0Q3NzI3OUQzQzA5Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+5u2xigAAAElJREFUeNpiYGBgMAfis0Asw4AJZKByIDVgxn8gvoOmWAYq9h+qBkUAphibGAM2xXdw2IKhGEMREwOJgCirifYM0cFDVIADBBgAI0YqiVjNUncAAAAASUVORK5CYII=);width:10px;height:10px;top:5px;right:5px;position:absolute;cursor:pointer}</style>
+  <script data-source="gwdbezierpath_min.js" data-version="1.1" data-exports-type="gwd-bezierpath" type="text/javascript">-function(){"use strict";var q=/[-+]?[0-9]*\.?[0-9]+%/g,r=/[-+]?[0-9]*\.?[0-9]+px/g,v=function(d,c,g,h,a){var b,e;if(c.gradientMode){a=[[a,a,0],[a,h-a,0],[g-a,h-a,0],[g-a,a,0]];if("radial"==c.gradientMode){(b=c.e)||(b="center");e=d="center";var f=b.match(q);b=b.match(r);f&&1<f.length?(d=f[0],e=f[1]):b&&1<b.length&&(d=b[0],e=b[1]);d=t(d,a[0][0],a[3][0]);e=t(e,a[0][1],a[1][1]);f=c.shape;b=[.5*(a[0][0]+a[2][0]),.5*(a[0][0]+a[2][0])];var k=d<b[0]?a[2][0]:a[0][0];b=e<b[1]?a[1][1]:a[0][1];k=Math.abs(d-k);b=Math.abs(e-b);var n=
+a[3][0]-a[0][0];a=a[1][1]-a[0][1];.001<Math.abs(n)&&(a/=n,k=Math.sqrt(k*k+b*b/(a*a)),b=a*k);a=k;f&&"farthest-corner"!=f&&(f=f.match(r))&&1<f.length&&(a=parseFloat(f[0]),b=parseFloat(f[1]));n=Math.max(a,b);f=document.createElement("canvas");f.width=g;f.height=h;k=f.getContext("2d");n=k.createRadialGradient(d,e,0,d,e,n);u(n,c.color);k.rect(0,0,g,h);b<a?(c=1,g=b/a):(g=1,c=a/b);k.save();k.transform(c,0,0,g,c*-d+d,g*-e+e);k.fillStyle=n;k.fill();k.restore();c=k.createPattern(f,"no-repeat")}else{g=0;c.orientation&&
+(g=parseFloat(c.orientation)*Math.PI/180);isFinite(g)&&!isNaN(g)||(g=0);b=-1*g;g=[];e=[];h=[.5*(a[0][0]+a[2][0]),.5*(a[0][1]+a[2][1])];f=Math.tan(b);if(.001>Math.abs(Math.tan(.5*Math.PI-.001)-f))e=0<=Math.sin(b)?1:-1,a=.5*(a[2][1]-a[0][1]),g=[h[0],h[1]-e*a],e=[h[0],h[1]+e*a];else{b=0<=Math.cos(b)?1:-1;b=[b,b*f];for(var k=Infinity,n=-Infinity,p=0;4>p;p++){var l,m=[a[p][0]-h[0],a[p][1]-h[1]],m=f*m[1]+m[0],m=m/(1+f*f);l=[m,m*f];m=(0<b[0]*l[0]+b[1]*l[1]?1:-1)*Math.sqrt(l[0]*l[0]+l[1]*l[1]);l=[l[0]+h[0],
+l[1]+h[1]];m<k&&(g=l,k=m);m>n&&(e=l,n=m)}}a=d.createLinearGradient(g[0],g[1],e[0],e[1]);u(a,c.color);c=a}return c}return"rgba("+Math.floor(255*c[0])+","+Math.floor(255*c[1])+","+Math.floor(255*c[2])+","+c[3]+")"},u=function(d,c){if(d)for(var g=c.length,h=0;h<g;h++){var a=c[h].position/100,b=c[h].value;if(void 0===b.a||null===b.a)b.a=1;d.addColorStop(a,"rgba("+b.r+","+b.g+","+b.b+","+b.a+")")}},t=function(d,c,g){return d?d=0<=d.indexOf("%")?c+parseInt(d,10)/100*(g-c):0<=d.indexOf("px")?c+parseInt(d,
+10):c+.5*(g-c):0};document.registerElement&&document.registerElement("gwd-bezierpath",{prototype:Object.create(HTMLCanvasElement.prototype,{attachedCallback:{value:function(){var d=this.getContext("2d");this.renderBezierPath_(this.shapeData_,d,this.width,this.height)},enumerable:!0},attributeChangedCallback:{value:function(){},enumerable:!0},shapeData_:{get:function(){var d={};d.anchors=JSON.parse(this.getAttribute("anchors"))||[];d.c=parseFloat(this.getAttribute("stroke-width"))||0;d.strokeColor=JSON.parse(this.getAttribute("stroke-color"));
+d.fillColor=JSON.parse(this.getAttribute("fill-color"));d.d=this.hasAttribute("closed");return d},enumerable:!0},renderBezierPath_:{value:function(d,c,g,h){c.save();var a=d.anchors.length;c.beginPath();var b=d.anchors[0],e=[];c.moveTo(b[1][0],b[1][1]);for(var f=1;f<a;f++)e=d.anchors[f],c.bezierCurveTo(b[2][0],b[2][1],e[0][0],e[0][1],e[1][0],e[1][1]),b=e;a&&d.d&&(e=d.anchors[0],c.bezierCurveTo(b[2][0],b[2][1],e[0][0],e[0][1],e[1][0],e[1][1]));c.lineCap="round";c.lineJoin="round";null!=d.fillColor&&
+(c.fillStyle=v(c,d.fillColor,g,h,d.c),c.fill());null!=d.strokeColor&&0<d.c&&(c.lineWidth=d.c,c.strokeStyle=v(c,d.strokeColor,g,h,0),c.stroke());c.restore()}}}),"extends":"canvas"});}()
+</script>
+  <script data-source="gwdmap_min.js" data-version="1.2" data-exports-type="gwd-map" type="text/javascript">-function(){"use strict";var f;var h=function(a){return"gwd-page"==a.tagName.toLowerCase()||"gwd-page"==a.getAttribute("is")},k=function(a){if(h(a))return a;for(;a&&9!=a.nodeType;)if((a=a.parentElement)&&h(a))return a;return null};function l(a,b){this.Aa=a;this.V=b}l.prototype.fetch=function(){var a=this.ta.bind(this),b=this.pa.bind(this);navigator.geolocation.getCurrentPosition(a,b)};l.prototype.ta=function(a){a=a.coords;this.Aa(a.latitude,a.longitude,a.accuracy)};l.prototype.pa=function(a){this.V(a.message)};var m=function(a,b,c){var d;c?(d=document.createEvent("CustomEvent"),d.initCustomEvent(a,!0,!0,c)):(d=document.createEvent("Event"),d.initEvent(a,!0,!0));b.dispatchEvent(d);return d},n=function(a,b){var c=function(d){a.removeEventListener("load",c);b(d)};a.addEventListener("load",c)};function p(a,b,c,d){this.u=a;this.p=null;this.T=c;this.ca=d;a=document.createElement("div");a.innerHTML='<div class="bg"><a class="dir"><div></div></a><div class="res"><div class="title"></div><div class="address"></div><div class="tel"><a href="#"></a></div></div><a class="close"><div></div></a></div>';a.className="ip";a.querySelector(".dir").addEventListener("click",this.qa.bind(this),!1);a.querySelector(".close").addEventListener("click",this.na.bind(this),!1);this.Ba=a.querySelector(".title");
+this.Q=a.querySelector(".address");this.w=a.querySelector(".tel");this.o=this.w.firstChild;this.o.addEventListener("click",this.ma.bind(this));this.b=a;this.d();b.appendChild(a)}p.prototype.d=function(){this.b.classList.add("hidden")};p.prototype.ma=function(a){a.preventDefault();a=this.o.href;m("calllocation",this.u,{url:a}).detail.handled||window.open(a)};p.prototype.na=function(a){a.preventDefault();this.d();this.T()};p.prototype.qa=function(a){a.preventDefault();this.p&&this.ca(this.p)};function q(a){var b=document.createElement("div");b.innerHTML='<div class="loading"><div></div></div>';b.className="bg hidden";this.b=b;a.appendChild(this.b)}q.prototype.show=function(){this.b.classList.remove("hidden")};q.prototype.d=function(){this.b.classList.add("hidden")};function r(a,b,c,d){this.s=b;this.Z=c;t(this,d);a.appendChild(this.b)}
+var t=function(a,b){var c=document.createElement("div");c.innerHTML='<div class="diag"><div class="title"></div><div class="btns"></div><form method="get"><input type="search" /></form></div>';var d=c.querySelector(".title");d.textContent=b.title;a.Ca=d;d=c.querySelector(".btns");a.R=d;a.s?(u(d,b.da,a.s),u(d,b.$,a.A.bind(a,b.ba))):d.classList.add("hidden");var e=c.querySelector("input");e.placeholder=b.aa;a.ha=e;d=c.querySelector("form");a.Y=d;d.addEventListener("submit",function(a){a.preventDefault();
+this.Z(e.value)}.bind(a),!1);a.s&&d.classList.add("hidden");c.classList.add("bg");a.b=c},u=function(a,b,c){var d=document.createElement("a");d.textContent=b;d.addEventListener("click",function(a){a.preventDefault();c()},!1);d.href="#";a.appendChild(d)};r.prototype.d=function(){this.b.classList.add("hidden")};r.prototype.A=function(a){this.Ca.textContent=a;this.R.classList.add("hidden");this.Y.classList.remove("hidden");this.b.classList.remove("hidden");this.ha.focus()};function v(a){this.fa=a}v.prototype.search=function(a,b,c){(new google.visualization.Query(w(this,a,b))).send(function(a){if(a.isError()||a.hasWarning())a=[];else{a=a.getDataTable();for(var b=[],g=0;g<a.getNumberOfRows();++g)b.push({name:a.getValue(g,0),formatted_address:a.getValue(g,1),formatted_phone_number:a.getValue(g,2),geometry:{location:new google.maps.LatLng(a.getValue(g,3),a.getValue(g,4))}});a=b}c(a)})};
+var w=function(a,b,c){b="LATLNG("+b.getCenter().toUrlValue()+")";return"https://www.google.com/fusiontables/gvizdata?tq="+encodeURIComponent("SELECT name, address, phone, latitude, longitude FROM "+a.fa+" ORDER BY ST_DISTANCE(latitude, "+b+") LIMIT "+c)};function x(a,b){this.za=a;for(var c=b.split("."),d=window,e=0;d&&e<c.length;e++)d=d[c[e]];this.m=d?0:2;this.n=[]}x.prototype.ra=function(){for(var a=this.m=0;a<this.n.length;a++)this.n[a]();this.n=[]};x.prototype.load=function(a){a&&(0==this.m?a():this.n.push(a));if(2==this.m){this.m=1;a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src=this.za;n(a,this.ra.bind(this));var b=document.getElementsByTagName("script")[0];b?b.parentNode.insertBefore(a,b):document.getElementsByTagName("head")[0].appendChild(a)}};var y=null,z=function(a,b,c){y||(y=new x("https://www.google.com/jsapi","google.load"));y.load(function(){google.load(a,b,c)})};function A(a,b){this.va=a;this.ua=new google.maps.places.PlacesService(b)}A.prototype.search=function(a,b,c){this.ua.textSearch({location:a.getCenter(),radius:3*a.getRadius(),query:this.va},function(a,b){c(b==google.maps.places.PlacesServiceStatus.OK?a:[])})};var C=function(a){a=a.trim();return window.Enabler?Enabler.getUrl(a):a};function D(a,b,c,d,e,g,B){this.u=a;this.a=null;this.wa=c;this.ka=d;this.la=e;this.xa=g;this.c=B;this.ia=B.limit;this.C=null;this.i=0;this.k=this.F=this.t=this.H=this.K=this.B=this.v=null;this.h=[];this.N=[];this.P=null;a=document.createElement("div");a.className="map";this.b=a;b.appendChild(a)}
+var E=function(a,b){var c=document.createElement("img"),d=function(){c.removeEventListener("load",d,!1);c.removeEventListener("error",d,!1);c.removeEventListener("abort",d,!1);b()};c.addEventListener("load",d,!1);c.addEventListener("error",d,!1);c.addEventListener("abort",d,!1);c.src=C(a)};f=D.prototype;
+f.U=function(){this.i--;if(0==this.i){var a=this.c,b,c;a.lat&&a.lng?(b=new google.maps.LatLng(a.lat,a.lng),c=a.zoom):(b=new google.maps.LatLng(0,0),c=1);b=new google.maps.Map(this.b,{center:b,zoom:c,mapTypeId:google.maps.MapTypeId.ROADMAP,mapTypeControl:!1});this.P=b.getBounds();google.maps.event.addListener(b,"dragend",this.oa.bind(this));google.maps.event.addListener(b,"click",this.sa.bind(this));c=C(this.c.L);this.v={url:c,size:new google.maps.Size(34,34),origin:new google.maps.Point(0,0)};this.B=
+{url:c,size:new google.maps.Size(34,34),origin:new google.maps.Point(34,0)};this.K={url:c,size:new google.maps.Size(37,34),origin:new google.maps.Point(68,0),anchor:new google.maps.Point(10,34)};this.H={url:C(this.c.G),size:new google.maps.Size(18,18),anchor:new google.maps.Point(9,9)};this.C=a.q?new v(a.q):new A(a.query||"*",b);this.a=b;this.wa()}};f.oa=function(){this.k&&!this.k.getBounds().contains(this.a.getCenter())&&(this.l(),this.xa())};
+f.l=function(){this.j&&(this.j.setIcon(this.v),this.j=null)};f.search=function(a){if(this.a){var b=this.c.radius,c=10-this.a.getZoom();0<c&&(b*=c);this.k=new google.maps.Circle({center:this.a.getCenter(),radius:b});this.C.search(this.k,this.ia,this.onSearchComplete_.bind(this,a))}};
+f.onSearchComplete_=function(a,b){for(var c=0;c<this.h.length;c++)this.h[c].setMap(null),google.maps.event.clearInstanceListeners(this.h[c]);this.h.length=0;this.N=b;for(var d=this.a,c=0;c<b.length;c++){var e=new google.maps.Marker({position:b[c].geometry.location,map:d,icon:this.v,shadow:this.K});google.maps.event.addListener(e,"click",this.onMarkerClick_.bind(this,c));this.h.push(e)}d.fitBounds(this.k.getBounds());(c=0<b.length)&&(e=d.getBounds())&&!e.contains(b[0].geometry.location)&&(e.extend(b[0].geometry.location),
+d.fitBounds(e));a(c)};f.sa=function(){this.l();this.ka()};f.onMarkerClick_=function(a){this.l();this.j=this.h[a];this.la(this.N[a],this.W.bind(this))};f.W=function(a){this.j.setIcon(this.B);this.a.panTo(this.j.getPosition());this.a.panBy(0,a)};f.ea=function(a,b,c,d){d==google.maps.GeocoderStatus.OK?(this.a.setCenter(c[0].geometry.location),this.a.fitBounds(c[0].geometry.viewport),a()):b()};var F=function(a,b,c){return a.hasAttribute(b)?parseFloat(a.getAttribute(b)):c},G=function(a,b,c){return a.hasAttribute(b)?a.getAttribute(b):c};
+document.registerElement&&document.registerElement("gwd-map",{prototype:Object.create(HTMLElement.prototype,{createdCallback:{value:function(){this.a=null;this.I=this.J=!1;this.O=this.c=this.f=this.g=this.e=this.r=null},enumerable:!0},attachedCallback:{value:function(){if(!this.a){var a={X:G(this,"msg-geocode-failure","Your location could not be determined. Please enter a nearby zip code."),G:G(this,"gps-src","assets/location.png"),limit:F(this,"result-limit",20),ja:{title:G(this,"msg-start-position-prompt",
+"How would you like us to get your position?"),da:G(this,"msg-gps-button-label","Use GPS"),$:G(this,"msg-manual-position-button-label","Enter zip code"),ba:G(this,"msg-manual-position-prompt","Enter your zip code"),aa:G(this,"msg-manual-position-placeholder","eg: 95113")},L:G(this,"marker-src","assets/marker_sprite.png"),Ha:G(this,"msg-no-results-found","No results found near you."),radius:F(this,"search-radius",4E4),M:this.hasAttribute("request-user-location")||!this.hasAttribute("start-latitude")||
+!this.hasAttribute("start-longitude"),zoom:F(this,"start-zoom",16),ya:this.hasAttribute("show-location-bar"),Fa:this.hasAttribute("include-directions"),Ea:this.hasAttribute("include-click-to-call"),ga:this.hasAttribute("include-drape-image")};this.hasAttribute("query")&&(a.query=this.getAttribute("query"));this.hasAttribute("start-latitude")&&(a.lat=parseFloat(this.getAttribute("start-latitude")));this.hasAttribute("start-longitude")&&(a.lng=parseFloat(this.getAttribute("start-longitude")));this.hasAttribute("client-id")&&
+(a.S=this.getAttribute("client-id"));this.hasAttribute("fusion-table-id")&&(a.q=this.getAttribute("fusion-table-id"));a.ya&&this.hasAttribute("location-bar-color")&&(a.Ga=this.getAttribute("location-bar-color"));a.ga&&this.hasAttribute("drape-image-source")&&(a.Da=this.getAttribute("drape-image-source"));var b=document.createElement("div");b.className="sizer";this.a=new D(this,b,this.onMapReady_.bind(this),this.maybeHideInfoPane_.bind(this),this.onMarkerClick_.bind(this),this.search_.bind(this),a);
+var c=this.onGeolocationSuccess_.bind(this),d=this.onGeolocationError_.bind(this);this.r=navigator.geolocation?new l(c,d):null;this.g=new r(b,this.r&&this.onGeolocationSearch_.bind(this),this.onGeocodeSearch_.bind(this),a.ja);a.M||this.g.d();this.e=new q(b);this.c=a;this.appendChild(b);this.O=b}"function"!=typeof this.gwdLoad||"function"!=typeof this.gwdIsLoaded||this.gwdIsLoaded()||(b=(a=k(this))&&"function"==typeof a.gwdIsLoaded,(!a||b&&a.gwdIsLoaded())&&this.gwdLoad());a=this.a;a.a&&google.maps.event.trigger(a.a,
+"resize")},enumerable:!0},gwdLoad:{value:function(){if(!this.I){this.I=!0;var a=this.a,b=a.U.bind(a);a.i=2;E(a.c.L,b);++a.i;E(a.c.G,b);var c=!!a.c.q;++a.i;var d=a.c.S;z("maps","3.13",{callback:b,other_params:"sensor=true"+(c?"":"&libraries=places")+(d?"&client="+d:"")});c&&(++a.i,z("visualization","1",{callback:b}));b()}},enumerable:!0},gwdIsLoaded:{value:function(){return this.J},enumerable:!0},onMapReady_:{value:function(){this.c.M||this.search_();this.classList.add("ready");this.J=!0;m("ready",
+this)},enumerable:!1},onGeolocationSearch_:{value:function(){this.e.show();this.g.d();this.r.fetch()},enumerable:!1},onGeolocationSuccess_:{value:function(a,b,c){this.e.d();var d=this.a;d.a&&(a=new google.maps.LatLng(a,b),b=d.a,d.t=a,b.setCenter(a),c&&(d.F=new google.maps.Circle({center:a,radius:c,map:b,fillColor:"#a2d1f5",fillOpacity:.5,strokeWeight:0}),new google.maps.Marker({position:a,map:b,icon:d.H}),b.fitBounds(d.F.getBounds())));this.search_()},enumerable:!1},onGeolocationError_:{value:function(a){this.e.d();
+this.g.A(a)},enumerable:!1},onGeocodeSearch_:{value:function(a){this.e.show();this.g.d();var b=this.a,c=this.search_.bind(this),d=this.onGeocodeError_.bind(this);b.a&&(b.D||(b.D=new google.maps.Geocoder),b.D.geocode({address:a,bounds:b.P},b.ea.bind(b,c,d)))},enumerable:!1},search_:{value:function(){this.e.show();this.a.search(this.onSearchComplete_.bind(this));this.maybeHideInfoPane_();m("mapopen",this)},enumerable:!1},onSearchComplete_:{value:function(a){this.e.d();a?m("resultsfound",this):(this.g.A(this.c.X),
+m("resultsnotfound",this))},enumerable:!1},onGeocodeError_:{value:function(){this.onSearchComplete_(!1)},enumerable:!1},maybeHideInfoPane_:{value:function(){this.f&&this.f.d()},enumerable:!1},onMarkerClick_:{value:function(a,b){this.f||(this.f=new p(this,this.O,this.a.l.bind(this.a),this.onDirectionsSearch_.bind(this)));var c=this.f;c.p=a;c.Ba.textContent=a.name;var d=a.vicinity||a.formatted_address,d=d.replace(/, /,",\n");c.Q.textContent=d;a.formatted_phone_number?(c.w.classList.remove("hidden"),
+c.o.textContent=a.formatted_phone_number,c.o.href="tel:"+a.formatted_phone_number.replace(/[^\d]/g,"")):c.w.classList.add("hidden");c.b.classList.remove("hidden");b(this.f.b.firstChild.offsetHeight/2);m("pinclick",this)},enumerable:!1},onDirectionsSearch_:{value:function(a){var b=this.a;b.a&&(a="http://maps.google.com/maps?saddr="+escape(b.t?b.t.toString():"")+"&daddr="+encodeURIComponent(a.formatted_address),m("getdirections",b.u,{url:a}).detail.handled||window.open(a))},enumerable:!1}})});}()
+</script>
+  
+  <script type="text/javascript" gwd-gwdid-version="1.0">// Copyright 2013 Google Inc. All Rights Reserved.
+(function(){var d;var f=function(a){this.c="";this.a=[];this.b="";a&&("string"==typeof a?this.f(a):this.e(a))};d=f.prototype;d.h=function(a){for(var c=this.c==a.c&&this.b==a.b&&this.a.length==a.a.length,b=0;c&&b<this.a.length;b++)c=this.a[b]==a.a[b];return c};d.n=function(){return""==this.g()};d.d=function(){this.c="";this.a=[];this.b=""};
+d.e=function(a){this.d();if(!a)return!1;var c=a.getAttribute("data-gwd-group-def")||"",b=c?[]:[a];for(a=a.parentElement;a&&!c;)a.hasAttribute("data-gwd-group")?b.push(a):c=a.getAttribute("data-gwd-group-def"),a=a.parentElement;b=b.reverse();a=!!c;var g=b[0];if(!a&&!g.id)return!1;for(var e=[],h=a?0:1;h<b.length;h++){var n=b[h].getAttribute("data-gwd-grp-id");if(!n)return!1;e.push(n)}this.c=a?"":g.id;this.a=e;this.b=c||"";return!0};
+d.f=function(a){this.d();a=a.split(" ");for(var c=""==a[0],b="",g=[],e=c?1:0;e<a.length;e++)if(a[e])b?g.push(a[e]):b=a[e];else return!1;if(!b)return!1;c?this.b=b:this.c=b;this.a=g;return!0};d.i=function(a){var c=null;if(this.b)c=a.querySelector('[data-gwd-group-def="'+this.b+'"]');else if(this.c)c=a.getElementById(this.c),c||(a=document.querySelector("[is=gwd-pagedeck]"))&&"function"==typeof a.getElementById&&(c=a.getElementById(this.c));else return null;return k(this,c)};
+d.j=function(a,c){if(!this.b)return null;for(var b=c;b;){var g=b.getAttribute("data-gwd-group");if(g==this.b)break;b=g&&b!=c?null:b.parentElement}return b?k(this,b):null};d.g=function(){var a="";this.b?a=" "+this.b:this.c&&(a=this.c);for(var c=0;c<this.a.length;c++)a+=" "+this.a[c];return a};d.l=function(){return this.c};d.m=function(){return this.a};d.k=function(){return this.b};
+var k=function(a,c){for(var b=c,g=0;b&&g<a.a.length;g++){for(var e=b.querySelector('[data-gwd-grp-id="'+a.a[g]+'"]'),h=e?e.parentElement:null;e&&h&&h!=b;)h.hasAttribute("data-gwd-group")?e=null:h=h.parentElement;b=e}return b};var l=["gwd","GwdId"],m=this;l[0]in m||!m.execScript||m.execScript("var "+l[0]);for(var p;l.length&&(p=l.shift());)l.length||void 0===f?m[p]?m=m[p]:m=m[p]={}:m[p]=f;f.GROUP_REFERENCE_ATTR="data-gwd-group";f.prototype.equals=f.prototype.h;f.prototype.clear=f.prototype.d;f.prototype.isEmpty=f.prototype.n;f.prototype.setFromElement=f.prototype.e;f.prototype.setFromString=f.prototype.f;f.prototype.getElement=f.prototype.i;f.prototype.getElementInInstance=f.prototype.j;f.prototype.getString=f.prototype.g;
+f.prototype.getLeadingId=f.prototype.l;f.prototype.getPseudoIds=f.prototype.m;f.prototype.getGroupName=f.prototype.k;})();
+</script>
+  <script type="text/javascript" gwd-events="support">var gwd=gwd||{};gwd.actions=gwd.actions||{};gwd.actions.events=gwd.actions.events||{};gwd.actions.events.getElementById=function(id){var gwdId=new gwd.GwdId(id);var retElement;var target=gwd.actions.events.currentTarget;if(!gwdId.getLeadingId()&&target){retElement=gwdId.getElementInInstance(document,gwd.actions.events.currentTarget)}else{retElement=gwdId.getElement(document)}if(!retElement){switch(id){case"document.body":retElement=document.body;break;case"document":retElement=document;break;case"window":retElement=window;break}}return retElement};gwd.actions.events.addHandler=function(eventTarget,eventName,eventHandler,useCapture){var gwdId=new gwd.GwdId(eventTarget);var groupName=gwdId.getGroupName();if(groupName!==""){var instances=document.querySelectorAll("["+gwd.GwdId.GROUP_REFERENCE_ATTR+" = "+groupName+"]");Array.prototype.forEach.call(instances,function(instance){var target=gwdId.getElementInInstance(document,instance);if(target){var actualHandlerProp=gwd.actions.events.actualHandlerProp;if(!eventHandler[actualHandlerProp]){eventHandler[actualHandlerProp]=gwd.actions.events.wrapHandler_.bind(null,eventHandler)}target.addEventListener(eventName,eventHandler[actualHandlerProp],useCapture)}})}else{var targetElement=gwd.actions.events.getElementById(eventTarget);if(targetElement){targetElement.addEventListener(eventName,eventHandler,useCapture)}}};gwd.actions.events.removeHandler=function(eventTarget,eventName,eventHandler,useCapture){var gwdId=new gwd.GwdId(eventTarget);var groupName=gwdId.getGroupName();if(groupName!==""){var instances=document.querySelectorAll("["+gwd.GwdId.GROUP_REFERENCE_ATTR+" = "+groupName+"]");Array.prototype.forEach.call(instances,function(instance){var target=gwdId.getElementInInstance(document,instance);if(target){var actualHandlerProp=gwd.actions.events.actualHandlerProp;if(eventHandler[actualHandlerProp]){target.removeEventListener(eventName,eventHandler[actualHandlerProp],useCapture)}}})}else{var targetElement=gwd.actions.events.getElementById(eventTarget);if(targetElement&&eventTarget[0]!=" "){targetElement.removeEventListener(eventName,eventHandler,useCapture)}}};gwd.actions.events.setInlineStyle=function(id,styles){var element=gwd.actions.events.getElementById(id);if(!element||!styles){return}var transitionProperty=element.style.transition!==undefined?"transition":"-webkit-transition";var prevTransition=element.style[transitionProperty];var splitStyles=styles.split(/\s*;\s*/);var nameValue;splitStyles.forEach(function(splitStyle){if(splitStyle){var regex=new RegExp("[:](?![/]{2})");nameValue=splitStyle.split(regex);nameValue[1]=nameValue[1]?nameValue[1].trim():null;if(!(nameValue[0]&&nameValue[1])){return}element.style.setProperty(nameValue[0],nameValue[1])}});function restoreTransition(event){var el=event.target;el.style.transition=prevTransition;el.removeEventListener(event.type,restoreTransition,false)}element.addEventListener("transitionend",restoreTransition,false);element.addEventListener("webkitTransitionEnd",restoreTransition,false)};gwd.actions.events.currentTarget=null;gwd.actions.events.actualHandlerProp="gwd_actualHandler";gwd.actions.events.wrapHandler_=function(handler,event){gwd.actions.events.currentTarget=event.target;handler.call(null,event)};gwd.actions.timeline=gwd.actions.timeline||{};gwd.actions.timeline.dispatchTimedEvent=function(event){event.stopPropagation();var customEventTarget=event.target;if(customEventTarget){var customEventName=customEventTarget.getAttribute("data-event-name");if(customEventName){var event=document.createEvent("CustomEvent");event.initCustomEvent(customEventName,true,true,null);customEventTarget.dispatchEvent(event)}}};gwd.actions.timeline.captureAnimationEnd=function(element){if(!element){return}var animationEndEvents=["animationend","webkitAnimationEnd"];for(var i=0;i<animationEndEvents.length;i++){element.addEventListener(animationEndEvents[i],gwd.actions.timeline.dispatchTimedEvent,true)}};gwd.actions.timeline.releaseAnimationEnd=function(element){if(!element){return}var animationEndEvents=["animationend","webkitAnimationEnd"];for(var i=0;i<animationEndEvents.length;i++){element.removeEventListener(animationEndEvents[i],gwd.actions.timeline.dispatchTimedEvent,true)}};gwd.actions.timeline.timelineAnimationRegistry={};gwd.actions.timeline.pauseAnimationClassName="gwd-pause-animation";gwd.actions.timeline.reflow=function(el){el.offsetWidth=el.offsetWidth};gwd.actions.timeline.pause=function(id){var el=gwd.actions.events.getElementById(id);el&&el.classList&&el.classList.add(gwd.actions.timeline.pauseAnimationClassName)};gwd.actions.timeline.play=function(id){var el=gwd.actions.events.getElementById(id);el&&el.classList&&el.classList.remove(gwd.actions.timeline.pauseAnimationClassName)};gwd.actions.timeline.togglePlay=function(id){var el=gwd.actions.events.getElementById(id);el&&el.classList&&el.classList.toggle(gwd.actions.timeline.pauseAnimationClassName)};gwd.actions.timeline.gotoAndPlay=function(id,animClass){var el=gwd.actions.events.getElementById(id);if(!(el&&el.classList&&id&&animClass)){return false}var className=gwd.actions.timeline.timelineAnimationRegistry[id];className&&el.classList.remove(className);gwd.actions.timeline.play(id);if(className==animClass){gwd.actions.timeline.reflow(el)}el.classList.add(animClass);gwd.actions.timeline.timelineAnimationRegistry[id]=animClass;return true};gwd.actions.timeline.gotoAndPause=function(id,animClass){var el=gwd.actions.events.getElementById(id);if(!(el&&el.classList)){return false}if(gwd.actions.timeline.gotoAndPlay(id,animClass)){var timeoutId=window.setTimeout(function(){gwd.actions.timeline.pause(id)},40)}return!!timeoutId}</script>
+  <script type="text/javascript" gwd-events="handlers">
+    gwd.auto_RemoteButtonClick1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('remoteButton_1', 'transition: all 0.5s ease-in; left: 30px; top: 110px; opacity: 1; ');
+    };
+    gwd.auto_RemoteButtonClick2 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('remoteButton_2', 'transition: all 0.5s ease-in; top: 180px; left: 30px; opacity: 1; ');
+    };
+    gwd.auto_RemoteButtonClick3 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('remoteButton_3', 'transition: all 0.5s ease-in; top: 250px; left: 30px; opacity: 1; ');
+    };
+    gwd.auto_RemoteButtonClick4 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo1', 'transition: all 0.5s ease-out; left: 0px; top: 0px; opacity: 0; ');
+    };
+    gwd.auto_RemoteButtonClick5 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo2', 'transition: all 0.5s ease-out; left: 0px; top: 0px; opacity: 0; ');
+    };
+    gwd.auto_RemoteButtonClick6 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo3', 'transition: all 0.5s ease-out; left: 0px; top: 0px; opacity: 0; ');
+    };
+    gwd.auto_RemoteButtonClick7 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('contact', 'transition: all 0.5s ease-out; left: 0px; top: 0px; opacity: 0; ');
+    };
+    gwd.auto_RemoteButtonClick8 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('locationMap', 'transition: all 0.5s ease-out; left: 0px; top: 0px; opacity: 0; width: 0%; ');
+    };
+    gwd.auto_RemoteButtonClick9 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('addressBlock', 'transition: all 0.5s ease-out; opacity: 0; ');
+    };
+    gwd.auto_AddressButtonMouseover = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('remoteButton_1', 'transition: all 0.5s ease-out; opacity: 0; ');
+    };
+    gwd.auto_AddressButtonMouseover1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('remoteButton_2', 'transition: all 0.5s ease-out; opacity: 0; ');
+    };
+    gwd.auto_AddressButtonMouseover2 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('remoteButton_3', 'transition: all 0.5s ease-out; opacity: 0; ');
+    };
+    gwd.auto_AddressButtonMouseover4 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('addressBlock', 'transition: all 0.5s ease-in; opacity: 1; ');
+    };
+    gwd.auto_AddressButtonClick = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('locationMap', 'transition: all 0.5s ease-in; opacity: 1; left: 0px; top: 0px; width: 100%; height: 100%; ');
+    };
+    gwd.auto_AddressButtonClick1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo1', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; width: 150px; ');
+    };
+    gwd.auto_AddressButtonClick2 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo2', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; width: 150px; ');
+    };
+    gwd.auto_AddressButtonClick3 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo3', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; width: 150px; ');
+    };
+    gwd.auto_AddressButtonClick4 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('contact', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; width: 150px; ');
+    };
+    gwd.auto_RemoteButtonMouseover = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('remoteButton_1', 'transition: all 0.5s ease-in; opacity: 1; ');
+    };
+    gwd.auto_RemoteButtonMousemove = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('remoteButton_2', 'transition: all 0.5s ease-in; opacity: 1; ');
+    };
+    gwd.auto_RemoteButtonMouseover1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('remoteButton_3', 'transition: all 0.5s ease-in; opacity: 1; ');
+    };
+    gwd.auto_AddressButtonClick5 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('addressBlock', 'transition: all 0.5s ease-in; opacity: 1; ');
+    };
+    gwd.auto_ContactButtonClick = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo1', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; top: 0px; width: 150px; ');
+    };
+    gwd.auto_ContactButtonClick1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo2', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; top: 0px; width: 150px; ');
+    };
+    gwd.auto_ContactButtonClick2 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo3', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; top: 0px; width: 150px; ');
+    };
+    gwd.auto_ContactButtonClick3 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('contact', 'transition: all 0.5s ease-in; opacity: 0.85; left: 250px; top: 25px; width: 400px; ');
+    };
+    gwd.auto_ContactButtonClick4 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('addressBlock', 'transition: all 0.5s ease-out; opacity: 0; ');
+    };
+    gwd.auto_RemoteButton_1Click = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo1', 'transition: all 0.5s ease-in; opacity: 0.85; left: 250px; top: 25px; ');
+    };
+    gwd.auto_RemoteButton_1Click1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo2', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; top: 0px; width: 150px; ');
+    };
+    gwd.auto_RemoteButton_1Click2 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo3', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; top: 0px; width: 150px; ');
+    };
+    gwd.auto_RemoteButton_1Click3 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('contact', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; top: 0px; width: 150px; ');
+    };
+    gwd.auto_RemoteButton_1Click4 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('addressBlock', 'transition: all 0.5s ease-out; opacity: 0; ');
+    };
+    gwd.auto_RemoteButton_1Click5 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('locationMap', 'transition: all 0.5s ease-out; opacity: 0; left: 0px; top: 0px; width: 0%; ');
+    };
+    gwd.auto_RemoteButton_2Click = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('locationMap', 'transition: all 0.5s ease-out; opacity: 0; left: 0px; top: 0px; width: 0%; ');
+    };
+    gwd.auto_RemoteButton_2Click1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo1', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; top: 0px; width: 150px; ');
+    };
+    gwd.auto_RemoteButton_2Click2 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo2', 'transition: all 0.5s ease-in; opacity: 0.85; left: 250px; top: 25px; width: 400px; ');
+    };
+    gwd.auto_RemoteButton_2Click3 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo3', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; top: 0px; width: 150px; ');
+    };
+    gwd.auto_RemoteButton_2Click4 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('contact', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; top: 0px; width: 150px; ');
+    };
+    gwd.auto_RemoteButton_2Click5 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('addressBlock', 'transition: all 0.5s ease-out; opacity: 0; ');
+    };
+    gwd.auto_RemoteButtonMouseover2 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('addressBlock', 'transition: all 0.5s ease-out; opacity: 0; ');
+    };
+    gwd.auto_RemoteButton_3Click = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('locationMap', 'transition: all 0.5s ease-out; opacity: 0; left: 0px; top: 0px; width: 0%; ');
+    };
+    gwd.auto_RemoteButton_3Click1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo1', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; top: 0px; width: 150px; ');
+    };
+    gwd.auto_RemoteButton_3Click2 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo3', 'transition: all 0.5s ease-in; opacity: 0.85; left: 250px; top: 25px; width: 400px; ');
+    };
+    gwd.auto_RemoteButton_3Click3 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('contact', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; top: 0px; width: 150px; ');
+    };
+    gwd.auto_RemoteButton_3Click4 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('addressBlock', 'transition: all 0.5s ease-out; opacity: 0; ');
+    };
+    gwd.auto_RemoteButton_3Click5 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo2', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; top: 0px; width: 150px; ');
+    };
+    gwd.auto_RemoteButton_1Mouseover = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('click', 'left: 18px; top: 122px; opacity: 1; ');
+    };
+    gwd.auto_RemoteButton_1Mouseout = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('click', 'left: -50px; opacity: 0; ');
+    };
+    gwd.auto_RemoteButton_1Mouseover1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('remoteButton_1', 'transition: all 0.5s ease-in; left: 40px; ');
+    };
+    gwd.auto_RemoteButton_1Mouseout1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('remoteButton_1', 'transition: all 0.5s ease-out; left: 30px; ');
+    };
+    gwd.auto_RemoteButton_2Mouseover = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('click', 'left: 18px; top: 192px; opacity: 1; ');
+    };
+    gwd.auto_RemoteButton_2Mouseout = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('click', 'left: -50px; opacity: 0; ');
+    };
+    gwd.auto_RemoteButton_2Mouseover1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('remoteButton_2', 'transition: all 0.5s ease-in; left: 40px; ');
+    };
+    gwd.auto_RemoteButton_2Mouseout1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('remoteButton_2', 'transition: all 0.5s ease-out; left: 30px; ');
+    };
+    gwd.auto_RemoteButton_3Mouseover = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('click', 'left: 18px; top: 262px; opacity: 1; ');
+    };
+    gwd.auto_RemoteButton_3Mouseout = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('click', 'left: -500px; opacity: 0px; ');
+    };
+    gwd.auto_RemoteButton_3Mouseover1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('remoteButton_3', 'transition: all 0.5s ease-in; left: 40px; ');
+    };
+    gwd.auto_RemoteButton_3Mouseout1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('remoteButton_3', 'transition: all 0.5s ease-out; left: 30px; ');
+    };
+    gwd.auto_AddressButtonMouseover3 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('addressButton', 'transition: all 0.5s ease-in; left: 30px; ');
+    };
+    gwd.auto_AddressButtonMouseout = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('addressButton', 'transition: all 0.5s ease-out; left: 20px; ');
+    };
+    gwd.auto_ContactButtonMouseover = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('contactButton', 'transition: all 0.5s ease-in; left: 30px; ');
+    };
+    gwd.auto_ContactButtonMouseout = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('contactButton', 'transition: all 0.5s ease-out; left: 20px; ');
+    };
+    gwd.auto_AddressButtonMouseover5 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('click', 'left: 8px; top: 657px; opacity: 1; ');
+    };
+    gwd.auto_AddressButtonMouseout1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('click', 'left: -50px; opacity: 0; ');
+    };
+    gwd.auto_ContactButtonMouseover1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('click', 'left: 8px; top: 582px; opacity: 1; ');
+    };
+    gwd.auto_ContactButtonMouseout1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('click', 'left: -50px; opacity: 0; ');
+    };
+    gwd.auto_RemoteButton_1Click6 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('fb', 'transition: all 0.5s ease-out; opacity: 0; left: -400px; top: 0px; ');
+    };
+    gwd.auto_RemoteButton_2Click6 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('fb', 'transition: all 0.5s ease-out; opacity: 0; left: -400px; top: 0px; ');
+    };
+    gwd.auto_RemoteButton_3Click6 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('fb', 'transition: all 0.5s ease-out; opacity: 0; left: -400px; top: 0px; ');
+    };
+    gwd.auto_ContactButtonClick5 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('fb', 'transition: all 0.5s ease-out; opacity: 0; left: -400px; top: 0px; ');
+    };
+    gwd.auto_AddressButtonClick6 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('fb', 'transition: all 0.5s ease-out; opacity: 0; left: -400px; top: 0px; ');
+    };
+    gwd.auto_FbButtonClick = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('fb', 'transition: all 0.5s ease-in; opacity: 0.9; left: 250px; top: 25px; ');
+    };
+    gwd.auto_FbButtonMouseover = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('click', 'left: 8px; top: 727px; opacity: 1; ');
+    };
+    gwd.auto_FbButtonMouseout = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('click', 'left: -50px; opacity: 0; ');
+    };
+    gwd.auto_FbButtonMouseover1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('fbButton', 'transition: all 0.5s ease-in; left: 30px; ');
+    };
+    gwd.auto_FbButtonMouseout1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('fbButton', 'left: 20px; ');
+    };
+    gwd.auto_FbButtonClick1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo1', 'transition: all 0.5s ease-in; opacity: 0; left: -150px; top: 0px; width: 150px; ');
+    };
+    gwd.auto_FbButtonClick2 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo2', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; top: 0px; width: 150px; ');
+    };
+    gwd.auto_FbButtonClick3 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo3', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; top: 0px; width: 150px; ');
+    };
+    gwd.auto_FbButtonClick4 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('contact', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; top: 0px; width: 150px; ');
+    };
+    gwd.auto_ContactButtonClick6 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('remoteButton_1', 'left: -150px; ');
+    };
+    gwd.auto_ContactButtonClick7 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('remoteButton_2', 'left: -150px; ');
+    };
+    gwd.auto_ContactButtonClick8 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('remoteButton_3', 'left: -150px; ');
+    };
+    gwd.auto_AddressButtonClick7 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('remoteButton_1', 'left: -150px; ');
+    };
+    gwd.auto_AddressButtonClick8 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('remoteButton_2', 'left: -150px; ');
+    };
+    gwd.auto_AddressButtonClick9 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('remoteButton_3', 'left: -150px; ');
+    };
+    gwd.auto_RemoteButtonClick10 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('fb', 'transition: all 0.5s ease-out; opacity: 0; left: -400px; top: 0px; ');
+    };
+    gwd.auto_FbButtonClick5 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('locationMap', 'transition: all 0.5s ease-out; opacity: 0; left: -1500px; width: 0%; ');
+    };
+    gwd.auto_RemoteButtonClick11 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('twitter', 'transition: all 0.5s ease-out; opacity: 0; left: -400px; top: 0px; ');
+    };
+    gwd.auto_RemoteButton_1Click7 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('twitter', 'transition: all 0.5s ease-out; opacity: 0; left: -400px; top: 0px; ');
+    };
+    gwd.auto_RemoteButton_2Click7 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('twitter', 'transition: all 0.5s ease-out; opacity: 0; left: -400px; top: 0px; ');
+    };
+    gwd.auto_RemoteButton_3Click7 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('twitter', 'transition: all 0.5s ease-out; opacity: 0; left: -400px; top: 0px; ');
+    };
+    gwd.auto_ContactButtonClick9 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('twitter', 'transition: all 0.5s ease-out; opacity: 0; left: -400px; top: 0px; ');
+    };
+    gwd.auto_AddressButtonClick10 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('twitter', 'transition: all 0.5s ease-out; opacity: 0; left: -400px; top: 0px; ');
+    };
+    gwd.auto_FbButtonClick6 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('twitter', 'transition: all 0.5s ease-out; opacity: 0; left: -400px; top: 0px; ');
+    };
+    gwd.auto_TwitterButtonMouseover = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('click', 'opacity: 1; left: 8px; top: 802px; ');
+    };
+    gwd.auto_TwitterButtonMouseout = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('click', 'opacity: 0; ');
+    };
+    gwd.auto_TwitterButtonMouseover1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('twitterButton', 'transition: all 0.5s ease-in; left: 30px; ');
+    };
+    gwd.auto_TwitterButtonMouseout1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('twitterButton', 'transition: all 0.5s ease-out; left: 20px; ');
+    };
+    gwd.auto_TwitterButtonClick = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('twitter', 'transition: all 0.5s ease-in; opacity: 0.9; left: 250px; top: 25px; ');
+    };
+    gwd.auto_TwitterButtonClick1 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('locationMap', 'transition: all 0.5s ease-out; opacity: 0; left: -1500px; ');
+    };
+    gwd.auto_TwitterButtonClick2 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo1', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; top: 0px; width: 150px; ');
+    };
+    gwd.auto_TwitterButtonClick3 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo2', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; top: 0px; width: 150px; ');
+    };
+    gwd.auto_TwitterButtonClick4 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('instamojo3', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; top: 0px; width: 150px; ');
+    };
+    gwd.auto_TwitterButtonClick5 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('contact', 'transition: all 0.5s ease-out; opacity: 0; left: -150px; top: 0px; width: 150px; ');
+    };
+    gwd.auto_TwitterButtonClick6 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('fb', 'transition: all 0.5s ease-out; opacity: 0; left: -400px; top: 0px; ');
+    };
+    gwd.auto_ContactButtonClick10 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('locationMap', 'transition: all 0.5s ease-in-out; left: -1500px; width: 0%; ');
+    };
+    gwd.auto_RemoteButtonClick = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('clickRemote', 'transition: all 0.5s ease-out; opacity: 0; ');
+    };
+    gwd.auto_RemoteButtonClick12 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.events.setInlineStyle('remoteButton', 'transition: all 0.5s ease-in; width: 139px; ');
+    };
+    gwd.auto_RemoteButtonClick13 = function(event) {
+      // GWD Predefined Function
+      gwd.actions.timeline.gotoAndPause('document.body', 'start');
+    };
+  </script>
+  <script type="text/javascript" gwd-events="registration">
+    // Support code for event handling in Google Web Designer
+     // This script block is auto-generated. Please do not edit!
+    gwd.actions.events.registerEventHandlers = function(event) {
+      gwd.actions.events.addHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick1, false);
+      gwd.actions.events.addHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick2, false);
+      gwd.actions.events.addHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick3, false);
+      gwd.actions.events.addHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick4, false);
+      gwd.actions.events.addHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick5, false);
+      gwd.actions.events.addHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick6, false);
+      gwd.actions.events.addHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick7, false);
+      gwd.actions.events.addHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick8, false);
+      gwd.actions.events.addHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick9, false);
+      gwd.actions.events.addHandler('addressButton', 'mouseover', gwd.auto_AddressButtonMouseover, false);
+      gwd.actions.events.addHandler('addressButton', 'mouseover', gwd.auto_AddressButtonMouseover1, false);
+      gwd.actions.events.addHandler('addressButton', 'mouseover', gwd.auto_AddressButtonMouseover2, false);
+      gwd.actions.events.addHandler('addressButton', 'mouseover', gwd.auto_AddressButtonMouseover4, false);
+      gwd.actions.events.addHandler('addressButton', 'click', gwd.auto_AddressButtonClick, false);
+      gwd.actions.events.addHandler('addressButton', 'click', gwd.auto_AddressButtonClick1, false);
+      gwd.actions.events.addHandler('addressButton', 'click', gwd.auto_AddressButtonClick2, false);
+      gwd.actions.events.addHandler('addressButton', 'click', gwd.auto_AddressButtonClick3, false);
+      gwd.actions.events.addHandler('addressButton', 'click', gwd.auto_AddressButtonClick4, false);
+      gwd.actions.events.addHandler('remoteButton', 'mouseover', gwd.auto_RemoteButtonMouseover, false);
+      gwd.actions.events.addHandler('remoteButton', 'mousemove', gwd.auto_RemoteButtonMousemove, false);
+      gwd.actions.events.addHandler('remoteButton', 'mouseover', gwd.auto_RemoteButtonMouseover1, false);
+      gwd.actions.events.addHandler('addressButton', 'click', gwd.auto_AddressButtonClick5, false);
+      gwd.actions.events.addHandler('contactButton', 'click', gwd.auto_ContactButtonClick, false);
+      gwd.actions.events.addHandler('contactButton', 'click', gwd.auto_ContactButtonClick1, false);
+      gwd.actions.events.addHandler('contactButton', 'click', gwd.auto_ContactButtonClick2, false);
+      gwd.actions.events.addHandler('contactButton', 'click', gwd.auto_ContactButtonClick3, false);
+      gwd.actions.events.addHandler('contactButton', 'click', gwd.auto_ContactButtonClick4, false);
+      gwd.actions.events.addHandler('remoteButton_1', 'click', gwd.auto_RemoteButton_1Click, false);
+      gwd.actions.events.addHandler('remoteButton_1', 'click', gwd.auto_RemoteButton_1Click1, false);
+      gwd.actions.events.addHandler('remoteButton_1', 'click', gwd.auto_RemoteButton_1Click2, false);
+      gwd.actions.events.addHandler('remoteButton_1', 'click', gwd.auto_RemoteButton_1Click3, false);
+      gwd.actions.events.addHandler('remoteButton_1', 'click', gwd.auto_RemoteButton_1Click4, false);
+      gwd.actions.events.addHandler('remoteButton_1', 'click', gwd.auto_RemoteButton_1Click5, false);
+      gwd.actions.events.addHandler('remoteButton_2', 'click', gwd.auto_RemoteButton_2Click, false);
+      gwd.actions.events.addHandler('remoteButton_2', 'click', gwd.auto_RemoteButton_2Click1, false);
+      gwd.actions.events.addHandler('remoteButton_2', 'click', gwd.auto_RemoteButton_2Click2, false);
+      gwd.actions.events.addHandler('remoteButton_2', 'click', gwd.auto_RemoteButton_2Click3, false);
+      gwd.actions.events.addHandler('remoteButton_2', 'click', gwd.auto_RemoteButton_2Click4, false);
+      gwd.actions.events.addHandler('remoteButton_2', 'click', gwd.auto_RemoteButton_2Click5, false);
+      gwd.actions.events.addHandler('remoteButton', 'mouseover', gwd.auto_RemoteButtonMouseover2, false);
+      gwd.actions.events.addHandler('remoteButton_3', 'click', gwd.auto_RemoteButton_3Click, false);
+      gwd.actions.events.addHandler('remoteButton_3', 'click', gwd.auto_RemoteButton_3Click1, false);
+      gwd.actions.events.addHandler('remoteButton_3', 'click', gwd.auto_RemoteButton_3Click2, false);
+      gwd.actions.events.addHandler('remoteButton_3', 'click', gwd.auto_RemoteButton_3Click3, false);
+      gwd.actions.events.addHandler('remoteButton_3', 'click', gwd.auto_RemoteButton_3Click4, false);
+      gwd.actions.events.addHandler('remoteButton_3', 'click', gwd.auto_RemoteButton_3Click5, false);
+      gwd.actions.events.addHandler('remoteButton_1', 'mouseover', gwd.auto_RemoteButton_1Mouseover, false);
+      gwd.actions.events.addHandler('remoteButton_1', 'mouseout', gwd.auto_RemoteButton_1Mouseout, false);
+      gwd.actions.events.addHandler('remoteButton_1', 'mouseover', gwd.auto_RemoteButton_1Mouseover1, false);
+      gwd.actions.events.addHandler('remoteButton_1', 'mouseout', gwd.auto_RemoteButton_1Mouseout1, false);
+      gwd.actions.events.addHandler('remoteButton_2', 'mouseover', gwd.auto_RemoteButton_2Mouseover, false);
+      gwd.actions.events.addHandler('remoteButton_2', 'mouseout', gwd.auto_RemoteButton_2Mouseout, false);
+      gwd.actions.events.addHandler('remoteButton_2', 'mouseover', gwd.auto_RemoteButton_2Mouseover1, false);
+      gwd.actions.events.addHandler('remoteButton_2', 'mouseout', gwd.auto_RemoteButton_2Mouseout1, false);
+      gwd.actions.events.addHandler('remoteButton_3', 'mouseover', gwd.auto_RemoteButton_3Mouseover, false);
+      gwd.actions.events.addHandler('remoteButton_3', 'mouseout', gwd.auto_RemoteButton_3Mouseout, false);
+      gwd.actions.events.addHandler('remoteButton_3', 'mouseover', gwd.auto_RemoteButton_3Mouseover1, false);
+      gwd.actions.events.addHandler('remoteButton_3', 'mouseout', gwd.auto_RemoteButton_3Mouseout1, false);
+      gwd.actions.events.addHandler('addressButton', 'mouseover', gwd.auto_AddressButtonMouseover3, false);
+      gwd.actions.events.addHandler('addressButton', 'mouseout', gwd.auto_AddressButtonMouseout, false);
+      gwd.actions.events.addHandler('contactButton', 'mouseover', gwd.auto_ContactButtonMouseover, false);
+      gwd.actions.events.addHandler('contactButton', 'mouseout', gwd.auto_ContactButtonMouseout, false);
+      gwd.actions.events.addHandler('addressButton', 'mouseover', gwd.auto_AddressButtonMouseover5, false);
+      gwd.actions.events.addHandler('addressButton', 'mouseout', gwd.auto_AddressButtonMouseout1, false);
+      gwd.actions.events.addHandler('contactButton', 'mouseover', gwd.auto_ContactButtonMouseover1, false);
+      gwd.actions.events.addHandler('contactButton', 'mouseout', gwd.auto_ContactButtonMouseout1, false);
+      gwd.actions.events.addHandler('remoteButton_1', 'click', gwd.auto_RemoteButton_1Click6, false);
+      gwd.actions.events.addHandler('remoteButton_2', 'click', gwd.auto_RemoteButton_2Click6, false);
+      gwd.actions.events.addHandler('remoteButton_3', 'click', gwd.auto_RemoteButton_3Click6, false);
+      gwd.actions.events.addHandler('contactButton', 'click', gwd.auto_ContactButtonClick5, false);
+      gwd.actions.events.addHandler('addressButton', 'click', gwd.auto_AddressButtonClick6, false);
+      gwd.actions.events.addHandler('fbButton', 'click', gwd.auto_FbButtonClick, false);
+      gwd.actions.events.addHandler('fbButton', 'mouseover', gwd.auto_FbButtonMouseover, false);
+      gwd.actions.events.addHandler('fbButton', 'mouseout', gwd.auto_FbButtonMouseout, false);
+      gwd.actions.events.addHandler('fbButton', 'mouseover', gwd.auto_FbButtonMouseover1, false);
+      gwd.actions.events.addHandler('fbButton', 'mouseout', gwd.auto_FbButtonMouseout1, false);
+      gwd.actions.events.addHandler('fbButton', 'click', gwd.auto_FbButtonClick1, false);
+      gwd.actions.events.addHandler('fbButton', 'click', gwd.auto_FbButtonClick2, false);
+      gwd.actions.events.addHandler('fbButton', 'click', gwd.auto_FbButtonClick3, false);
+      gwd.actions.events.addHandler('fbButton', 'click', gwd.auto_FbButtonClick4, false);
+      gwd.actions.events.addHandler('contactButton', 'click', gwd.auto_ContactButtonClick6, false);
+      gwd.actions.events.addHandler('contactButton', 'click', gwd.auto_ContactButtonClick7, false);
+      gwd.actions.events.addHandler('contactButton', 'click', gwd.auto_ContactButtonClick8, false);
+      gwd.actions.events.addHandler('addressButton', 'mouseover', gwd.auto_AddressButtonClick7, false);
+      gwd.actions.events.addHandler('addressButton', 'mouseover', gwd.auto_AddressButtonClick8, false);
+      gwd.actions.events.addHandler('addressButton', 'mouseover', gwd.auto_AddressButtonClick9, false);
+      gwd.actions.events.addHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick10, false);
+      gwd.actions.events.addHandler('fbButton', 'click', gwd.auto_FbButtonClick5, false);
+      gwd.actions.events.addHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick11, false);
+      gwd.actions.events.addHandler('remoteButton_1', 'click', gwd.auto_RemoteButton_1Click7, false);
+      gwd.actions.events.addHandler('remoteButton_2', 'click', gwd.auto_RemoteButton_2Click7, false);
+      gwd.actions.events.addHandler('remoteButton_3', 'click', gwd.auto_RemoteButton_3Click7, false);
+      gwd.actions.events.addHandler('contactButton', 'click', gwd.auto_ContactButtonClick9, false);
+      gwd.actions.events.addHandler('addressButton', 'click', gwd.auto_AddressButtonClick10, false);
+      gwd.actions.events.addHandler('fbButton', 'click', gwd.auto_FbButtonClick6, false);
+      gwd.actions.events.addHandler('twitterButton', 'mouseover', gwd.auto_TwitterButtonMouseover, false);
+      gwd.actions.events.addHandler('twitterButton', 'mouseout', gwd.auto_TwitterButtonMouseout, false);
+      gwd.actions.events.addHandler('twitterButton', 'mouseover', gwd.auto_TwitterButtonMouseover1, false);
+      gwd.actions.events.addHandler('twitterButton', 'mouseout', gwd.auto_TwitterButtonMouseout1, false);
+      gwd.actions.events.addHandler('twitterButton', 'click', gwd.auto_TwitterButtonClick, false);
+      gwd.actions.events.addHandler('twitterButton', 'click', gwd.auto_TwitterButtonClick1, false);
+      gwd.actions.events.addHandler('twitterButton', 'click', gwd.auto_TwitterButtonClick2, false);
+      gwd.actions.events.addHandler('twitterButton', 'click', gwd.auto_TwitterButtonClick3, false);
+      gwd.actions.events.addHandler('twitterButton', 'click', gwd.auto_TwitterButtonClick4, false);
+      gwd.actions.events.addHandler('twitterButton', 'click', gwd.auto_TwitterButtonClick5, false);
+      gwd.actions.events.addHandler('twitterButton', 'click', gwd.auto_TwitterButtonClick6, false);
+      gwd.actions.events.addHandler('contactButton', 'click', gwd.auto_ContactButtonClick10, false);
+      gwd.actions.events.addHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick, false);
+      gwd.actions.events.addHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick12, false);
+      gwd.actions.events.addHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick13, false);
+      gwd.actions.timeline.captureAnimationEnd(document.body);
+    };
+    gwd.actions.events.deregisterEventHandlers = function(event) {
+      gwd.actions.events.removeHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick1, false);
+      gwd.actions.events.removeHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick2, false);
+      gwd.actions.events.removeHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick3, false);
+      gwd.actions.events.removeHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick4, false);
+      gwd.actions.events.removeHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick5, false);
+      gwd.actions.events.removeHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick6, false);
+      gwd.actions.events.removeHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick7, false);
+      gwd.actions.events.removeHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick8, false);
+      gwd.actions.events.removeHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick9, false);
+      gwd.actions.events.removeHandler('addressButton', 'mouseover', gwd.auto_AddressButtonMouseover, false);
+      gwd.actions.events.removeHandler('addressButton', 'mouseover', gwd.auto_AddressButtonMouseover1, false);
+      gwd.actions.events.removeHandler('addressButton', 'mouseover', gwd.auto_AddressButtonMouseover2, false);
+      gwd.actions.events.removeHandler('addressButton', 'mouseover', gwd.auto_AddressButtonMouseover4, false);
+      gwd.actions.events.removeHandler('addressButton', 'click', gwd.auto_AddressButtonClick, false);
+      gwd.actions.events.removeHandler('addressButton', 'click', gwd.auto_AddressButtonClick1, false);
+      gwd.actions.events.removeHandler('addressButton', 'click', gwd.auto_AddressButtonClick2, false);
+      gwd.actions.events.removeHandler('addressButton', 'click', gwd.auto_AddressButtonClick3, false);
+      gwd.actions.events.removeHandler('addressButton', 'click', gwd.auto_AddressButtonClick4, false);
+      gwd.actions.events.removeHandler('remoteButton', 'mouseover', gwd.auto_RemoteButtonMouseover, false);
+      gwd.actions.events.removeHandler('remoteButton', 'mousemove', gwd.auto_RemoteButtonMousemove, false);
+      gwd.actions.events.removeHandler('remoteButton', 'mouseover', gwd.auto_RemoteButtonMouseover1, false);
+      gwd.actions.events.removeHandler('addressButton', 'click', gwd.auto_AddressButtonClick5, false);
+      gwd.actions.events.removeHandler('contactButton', 'click', gwd.auto_ContactButtonClick, false);
+      gwd.actions.events.removeHandler('contactButton', 'click', gwd.auto_ContactButtonClick1, false);
+      gwd.actions.events.removeHandler('contactButton', 'click', gwd.auto_ContactButtonClick2, false);
+      gwd.actions.events.removeHandler('contactButton', 'click', gwd.auto_ContactButtonClick3, false);
+      gwd.actions.events.removeHandler('contactButton', 'click', gwd.auto_ContactButtonClick4, false);
+      gwd.actions.events.removeHandler('remoteButton_1', 'click', gwd.auto_RemoteButton_1Click, false);
+      gwd.actions.events.removeHandler('remoteButton_1', 'click', gwd.auto_RemoteButton_1Click1, false);
+      gwd.actions.events.removeHandler('remoteButton_1', 'click', gwd.auto_RemoteButton_1Click2, false);
+      gwd.actions.events.removeHandler('remoteButton_1', 'click', gwd.auto_RemoteButton_1Click3, false);
+      gwd.actions.events.removeHandler('remoteButton_1', 'click', gwd.auto_RemoteButton_1Click4, false);
+      gwd.actions.events.removeHandler('remoteButton_1', 'click', gwd.auto_RemoteButton_1Click5, false);
+      gwd.actions.events.removeHandler('remoteButton_2', 'click', gwd.auto_RemoteButton_2Click, false);
+      gwd.actions.events.removeHandler('remoteButton_2', 'click', gwd.auto_RemoteButton_2Click1, false);
+      gwd.actions.events.removeHandler('remoteButton_2', 'click', gwd.auto_RemoteButton_2Click2, false);
+      gwd.actions.events.removeHandler('remoteButton_2', 'click', gwd.auto_RemoteButton_2Click3, false);
+      gwd.actions.events.removeHandler('remoteButton_2', 'click', gwd.auto_RemoteButton_2Click4, false);
+      gwd.actions.events.removeHandler('remoteButton_2', 'click', gwd.auto_RemoteButton_2Click5, false);
+      gwd.actions.events.removeHandler('remoteButton', 'mouseover', gwd.auto_RemoteButtonMouseover2, false);
+      gwd.actions.events.removeHandler('remoteButton_3', 'click', gwd.auto_RemoteButton_3Click, false);
+      gwd.actions.events.removeHandler('remoteButton_3', 'click', gwd.auto_RemoteButton_3Click1, false);
+      gwd.actions.events.removeHandler('remoteButton_3', 'click', gwd.auto_RemoteButton_3Click2, false);
+      gwd.actions.events.removeHandler('remoteButton_3', 'click', gwd.auto_RemoteButton_3Click3, false);
+      gwd.actions.events.removeHandler('remoteButton_3', 'click', gwd.auto_RemoteButton_3Click4, false);
+      gwd.actions.events.removeHandler('remoteButton_3', 'click', gwd.auto_RemoteButton_3Click5, false);
+      gwd.actions.events.removeHandler('remoteButton_1', 'mouseover', gwd.auto_RemoteButton_1Mouseover, false);
+      gwd.actions.events.removeHandler('remoteButton_1', 'mouseout', gwd.auto_RemoteButton_1Mouseout, false);
+      gwd.actions.events.removeHandler('remoteButton_1', 'mouseover', gwd.auto_RemoteButton_1Mouseover1, false);
+      gwd.actions.events.removeHandler('remoteButton_1', 'mouseout', gwd.auto_RemoteButton_1Mouseout1, false);
+      gwd.actions.events.removeHandler('remoteButton_2', 'mouseover', gwd.auto_RemoteButton_2Mouseover, false);
+      gwd.actions.events.removeHandler('remoteButton_2', 'mouseout', gwd.auto_RemoteButton_2Mouseout, false);
+      gwd.actions.events.removeHandler('remoteButton_2', 'mouseover', gwd.auto_RemoteButton_2Mouseover1, false);
+      gwd.actions.events.removeHandler('remoteButton_2', 'mouseout', gwd.auto_RemoteButton_2Mouseout1, false);
+      gwd.actions.events.removeHandler('remoteButton_3', 'mouseover', gwd.auto_RemoteButton_3Mouseover, false);
+      gwd.actions.events.removeHandler('remoteButton_3', 'mouseout', gwd.auto_RemoteButton_3Mouseout, false);
+      gwd.actions.events.removeHandler('remoteButton_3', 'mouseover', gwd.auto_RemoteButton_3Mouseover1, false);
+      gwd.actions.events.removeHandler('remoteButton_3', 'mouseout', gwd.auto_RemoteButton_3Mouseout1, false);
+      gwd.actions.events.removeHandler('addressButton', 'mouseover', gwd.auto_AddressButtonMouseover3, false);
+      gwd.actions.events.removeHandler('addressButton', 'mouseout', gwd.auto_AddressButtonMouseout, false);
+      gwd.actions.events.removeHandler('contactButton', 'mouseover', gwd.auto_ContactButtonMouseover, false);
+      gwd.actions.events.removeHandler('contactButton', 'mouseout', gwd.auto_ContactButtonMouseout, false);
+      gwd.actions.events.removeHandler('addressButton', 'mouseover', gwd.auto_AddressButtonMouseover5, false);
+      gwd.actions.events.removeHandler('addressButton', 'mouseout', gwd.auto_AddressButtonMouseout1, false);
+      gwd.actions.events.removeHandler('contactButton', 'mouseover', gwd.auto_ContactButtonMouseover1, false);
+      gwd.actions.events.removeHandler('contactButton', 'mouseout', gwd.auto_ContactButtonMouseout1, false);
+      gwd.actions.events.removeHandler('remoteButton_1', 'click', gwd.auto_RemoteButton_1Click6, false);
+      gwd.actions.events.removeHandler('remoteButton_2', 'click', gwd.auto_RemoteButton_2Click6, false);
+      gwd.actions.events.removeHandler('remoteButton_3', 'click', gwd.auto_RemoteButton_3Click6, false);
+      gwd.actions.events.removeHandler('contactButton', 'click', gwd.auto_ContactButtonClick5, false);
+      gwd.actions.events.removeHandler('addressButton', 'click', gwd.auto_AddressButtonClick6, false);
+      gwd.actions.events.removeHandler('fbButton', 'click', gwd.auto_FbButtonClick, false);
+      gwd.actions.events.removeHandler('fbButton', 'mouseover', gwd.auto_FbButtonMouseover, false);
+      gwd.actions.events.removeHandler('fbButton', 'mouseout', gwd.auto_FbButtonMouseout, false);
+      gwd.actions.events.removeHandler('fbButton', 'mouseover', gwd.auto_FbButtonMouseover1, false);
+      gwd.actions.events.removeHandler('fbButton', 'mouseout', gwd.auto_FbButtonMouseout1, false);
+      gwd.actions.events.removeHandler('fbButton', 'click', gwd.auto_FbButtonClick1, false);
+      gwd.actions.events.removeHandler('fbButton', 'click', gwd.auto_FbButtonClick2, false);
+      gwd.actions.events.removeHandler('fbButton', 'click', gwd.auto_FbButtonClick3, false);
+      gwd.actions.events.removeHandler('fbButton', 'click', gwd.auto_FbButtonClick4, false);
+      gwd.actions.events.removeHandler('contactButton', 'click', gwd.auto_ContactButtonClick6, false);
+      gwd.actions.events.removeHandler('contactButton', 'click', gwd.auto_ContactButtonClick7, false);
+      gwd.actions.events.removeHandler('contactButton', 'click', gwd.auto_ContactButtonClick8, false);
+      gwd.actions.events.removeHandler('addressButton', 'mouseover', gwd.auto_AddressButtonClick7, false);
+      gwd.actions.events.removeHandler('addressButton', 'mouseover', gwd.auto_AddressButtonClick8, false);
+      gwd.actions.events.removeHandler('addressButton', 'mouseover', gwd.auto_AddressButtonClick9, false);
+      gwd.actions.events.removeHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick10, false);
+      gwd.actions.events.removeHandler('fbButton', 'click', gwd.auto_FbButtonClick5, false);
+      gwd.actions.events.removeHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick11, false);
+      gwd.actions.events.removeHandler('remoteButton_1', 'click', gwd.auto_RemoteButton_1Click7, false);
+      gwd.actions.events.removeHandler('remoteButton_2', 'click', gwd.auto_RemoteButton_2Click7, false);
+      gwd.actions.events.removeHandler('remoteButton_3', 'click', gwd.auto_RemoteButton_3Click7, false);
+      gwd.actions.events.removeHandler('contactButton', 'click', gwd.auto_ContactButtonClick9, false);
+      gwd.actions.events.removeHandler('addressButton', 'click', gwd.auto_AddressButtonClick10, false);
+      gwd.actions.events.removeHandler('fbButton', 'click', gwd.auto_FbButtonClick6, false);
+      gwd.actions.events.removeHandler('twitterButton', 'mouseover', gwd.auto_TwitterButtonMouseover, false);
+      gwd.actions.events.removeHandler('twitterButton', 'mouseout', gwd.auto_TwitterButtonMouseout, false);
+      gwd.actions.events.removeHandler('twitterButton', 'mouseover', gwd.auto_TwitterButtonMouseover1, false);
+      gwd.actions.events.removeHandler('twitterButton', 'mouseout', gwd.auto_TwitterButtonMouseout1, false);
+      gwd.actions.events.removeHandler('twitterButton', 'click', gwd.auto_TwitterButtonClick, false);
+      gwd.actions.events.removeHandler('twitterButton', 'click', gwd.auto_TwitterButtonClick1, false);
+      gwd.actions.events.removeHandler('twitterButton', 'click', gwd.auto_TwitterButtonClick2, false);
+      gwd.actions.events.removeHandler('twitterButton', 'click', gwd.auto_TwitterButtonClick3, false);
+      gwd.actions.events.removeHandler('twitterButton', 'click', gwd.auto_TwitterButtonClick4, false);
+      gwd.actions.events.removeHandler('twitterButton', 'click', gwd.auto_TwitterButtonClick5, false);
+      gwd.actions.events.removeHandler('twitterButton', 'click', gwd.auto_TwitterButtonClick6, false);
+      gwd.actions.events.removeHandler('contactButton', 'click', gwd.auto_ContactButtonClick10, false);
+      gwd.actions.events.removeHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick, false);
+      gwd.actions.events.removeHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick12, false);
+      gwd.actions.events.removeHandler('remoteButton', 'click', gwd.auto_RemoteButtonClick13, false);
+      gwd.actions.timeline.releaseAnimationEnd(document.body);
+    };
+    document.addEventListener("DOMContentLoaded", gwd.actions.events.registerEventHandlers);
+    document.addEventListener("unload", gwd.actions.events.deregisterEventHandlers);
+  </script>
+</head>
+
+<body style="">
+  
+  <gwd-map query="Testing Waters Architecture" start-longitude="77.646196" class="gwd-map-7vtp" start-latitude="13.021262" data-gwd-name="Testing Waters Map" search-radius="40000" result-limit="20" start-zoom="16" marker-src="https://699cafb52c552a2ecc22d02d3840b51b7dbac72b-www.googledrive.com/host/0B-OKOb_fJa16dVlrNVRSY0ExQVk" gps-src="https://699cafb52c552a2ecc22d02d3840b51b7dbac72b-www.googledrive.com/host/0B-OKOb_fJa16dVlrNVRSY0ExQVk" msg-start-position-prompt="How would you like us to get your position?" msg-gps-button-label="Use GPS" msg-manual-position-button-label="Enter zip code" msg-manual-position-prompt="Enter your zip code" msg-manual-position-placeholder="eg: 95113" msg-geocode-failure="Your location could not be determined. Please enter a nearby zip code." msg-no-results-found="No results found near you." id="locationMap"></gwd-map>
+  <div class="gwd-div-n8hs" id="fb">
+    <div class="fb-page" data-href="https://www.facebook.com/testingwaters.architecture" data-width="400" data-height="800" data-hide-cover="true" data-show-facepile="false" data-show-posts="true"></div>
+  </div>
+  <div class="gwd-div-j9pa" id="instamojo1">
+    <embed src="https://www.instamojo.com/testingwaters/test-the-waters/" width="400" height="800">
+  </div>
+  <div class="gwd-div-cnh3" id="instamojo2">
+    <embed src="https://www.instamojo.com/testingwaters/take-the-plunge/" width="400" height="800">
+  </div>
+  <div class="gwd-div-og4b" id="instamojo3">
+    <embed src="https://www.instamojo.com/testingwaters/go-the-distance/" width="400" height="800">
+  </div>
+  <div class="gwd-div-0w67" id="contact">
+    <embed src="https://docs.google.com/a/testingwaters.net/forms/d/1VICm_OypHuYu_LVpHIWlP9bCAr7o0URrgyo1CL4rAJk/viewform?embedded=true" width="400" height="800">
+  </div>
+  <div id="fb-root"></div>
+  <script>
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+  <div class="gwd-div-ptcr editable gwd-gen-rfgmgwdanimation" id="clickRemote" style="">
+    <div class="gwd-div-yw5y"><strong class="gwd-strong-9f63">C L I C K</strong>
+    </div>
+  </div>
+  <div class="gwd-div-s1jb" id="click">
+    <div class="gwd-div-dl1w"><span class="gwd-span-6f02">CLICK</span>
+    </div>
+  </div>
+  <div class="gwd-div-2m17" data-gwd-group="logoTWA" id="logoTWA">
+      <canvas is="gwd-bezierpath" width="75" height="154" class="gwd-canvas-728q gwd-grp-s4qh" anchors="[[[1.75,1,0],[1.5,1,0],[1.5,1,0]],[[74.75,1,0],[74.75,1,0],[74.75,1,0]],[[74.75,10.25,0],[74.75,10.25,0],[74.75,10.25,0]],[[11.5,11.25,0],[11.5,11.25,0],[11.5,11.25,0]],[[11,143.75,0],[11,143.75,0],[11,143.75,0]],[[1,153.25,0],[1,153.25,0],[1,153.25,0]]]" closed="" stroke-width="2" stroke-color="[0,0,0,1]" fill-color="null" geom-type="5"></canvas>
+      <canvas is="gwd-bezierpath" width="61" height="125" class="gwd-canvas-805p gwd-grp-s4qh" anchors="[[[1.25,1.5,0],[1,1,0],[1,1,0]],[[60.5,1.25,0],[60.5,1.25,0],[60.5,1.25,0]],[[60.5,10.25,0],[60.5,10.25,0],[60.5,10.25,0]],[[11,10.5,0],[11,10.5,0],[11,10.5,0]],[[10.75,114.25,0],[10.75,114.25,0],[10.75,114.25,0]],[[1,124.75,0],[1,124.75,0],[1,124.75,0]]]" closed="" stroke-width="2" stroke-color="[0,0,0,1]" fill-color="null" geom-type="5"></canvas>
+      <canvas is="gwd-bezierpath" width="46" height="95" class="gwd-canvas-dun8 gwd-grp-s4qh" anchors="[[[1,2,0],[1,1.5,0],[1,1.5,0]],[[45.75,1,0],[45.75,1,0],[45.75,1,0]],[[45.75,9,0],[45.75,9,0],[45.75,9,0]],[[10.75,9,0],[10.75,9,0],[10.75,9,0]],[[10.75,85,0],[10.75,85,0],[10.75,85,0]],[[1.25,94.5,0],[1.25,94.5,0],[1.25,94.5,0]]]" closed="" stroke-width="2" stroke-color="[0,0,0,1]" fill-color="null" geom-type="5"></canvas>
+      <canvas is="gwd-bezierpath" width="33" height="67" class="gwd-canvas-9w67 gwd-grp-s4qh" anchors="[[[0.56,0.75,0],[1.06,1,0],[1.06,1,0]],[[32.56,1,0],[32.56,1,0],[32.56,1,0]],[[32.06,9.75,0],[32.06,9.75,0],[32.06,9.75,0]],[[10.81,10,0],[10.81,10,0],[10.81,10,0]],[[10.81,57.5,0],[10.81,57.5,0],[10.81,57.5,0]],[[1.31,66.75,0],[1.31,66.75,0],[1.31,66.75,0]]]" closed="" stroke-width="2" stroke-color="[0,0,0,1]" fill-color="null" geom-type="5"></canvas>
+      <canvas is="gwd-bezierpath" width="17" height="38" class="gwd-canvas-w19m gwd-grp-s4qh" anchors="[[[1.25,1.75,0],[1.5,1.5,0],[1.5,1.5,0]],[[16.75,1,0],[16.75,1,0],[16.75,1,0]],[[16.75,9.5,0],[16.75,9.5,0],[16.75,9.5,0]],[[10.5,9.25,0],[10.5,9.25,0],[10.5,9.25,0]],[[10,29,0],[10,29,0],[10,29,0]],[[1,37.5,0],[1,37.5,0],[1,37.5,0]]]" closed="" stroke-width="2" stroke-color="[0,0,0,1]" fill-color="null" geom-type="5"></canvas>
+      <canvas is="gwd-bezierpath" width="11" height="10" class="gwd-canvas-r11a gwd-grp-s4qh" anchors="[[[1,1.5,0],[1,1,0],[1,1,0]],[[10.25,1,0],[10.25,1,0],[10.25,1,0]],[[10.5,9.25,0],[10.5,9.25,0],[10.5,9.25,0]],[[6,4.75,0],[6,4.75,0],[6,4.75,0]],[[1.25,9.75,0],[1.25,9.75,0],[1.25,9.75,0]]]" closed="" stroke-width="2" stroke-color="[0,0,0,1]" fill-color="null" geom-type="5"></canvas>
+      <canvas is="gwd-bezierpath" width="33" height="68" class="gwd-canvas-qays gwd-grp-s4qh" anchors="[[[31.5,1.25,0],[32,1,0],[32,1,0]],[[31.5,67.25,0],[31.5,67.25,0],[31.5,67.25,0]],[[23,57.25,0],[23,57.25,0],[23,57.25,0]],[[22.25,9.5,0],[22.25,9.5,0],[22.25,9.5,0]],[[1.5,9.75,0],[1.5,9.75,0],[1.5,9.75,0]],[[1,1,0],[1,1,0],[1,1,0]]]" closed="" stroke-width="2" stroke-color="[0,0,0,1]" fill-color="null" geom-type="5"></canvas>
+      <canvas is="gwd-bezierpath" width="19" height="38" class="gwd-canvas-0wdi gwd-grp-s4qh" anchors="[[[18.25,0.81,0],[17.75,1.31,0],[17.75,1.31,0]],[[17.75,37.31,0],[18,37.31,0],[18.25,37.31,0]],[[8.5,28.31,0],[8.5,28.31,0],[8.5,28.31,0]],[[8.25,10.06,0],[8.25,10.06,0],[8.25,10.06,0]],[[1,10.06,0],[1,10.06,0],[1,10.06,0]],[[1.75,1.06,0],[1.75,1.06,0],[1.75,1.06,0]]]" closed="" stroke-width="2" stroke-color="[0,0,0,1]" fill-color="null" geom-type="5"></canvas>
+      <canvas is="gwd-bezierpath" width="48" height="96" class="gwd-canvas-9vk5 gwd-grp-s4qh" anchors="[[[47.25,0.75,0],[47.25,1,0],[47.25,1,0]],[[46.5,95.75,0],[46.5,95.5,0],[46.5,95.25,0]],[[37.25,86.25,0],[37.25,86.25,0],[37.25,86.25,0]],[[36.5,9.75,0],[36.5,9.75,0],[36.5,9.75,0]],[[1.25,10.25,0],[1.25,10.25,0],[1.25,10.25,0]],[[1,1,0],[1,1,0],[1,1,0]]]" closed="" stroke-width="2" stroke-color="[0,0,0,1]" fill-color="null" geom-type="5"></canvas>
+      <canvas is="gwd-bezierpath" width="62" height="125" class="gwd-canvas-uqb1 gwd-grp-s4qh" anchors="[[[62,1.25,0],[61.5,1,0],[61.5,1,0]],[[61.25,124,0],[61.25,124,0],[61.25,124,0]],[[52,115.25,0],[52,115.25,0],[52,115.25,0]],[[50.75,11.25,0],[50.75,11.25,0],[50.75,11.25,0]],[[1,10.75,0],[1,10.75,0],[1,10.75,0]],[[1.25,1.5,0],[1.25,1.5,0],[1.25,1.5,0]]]" closed="" stroke-width="2" stroke-color="[0,0,0,1]" fill-color="null" geom-type="5"></canvas>
+      <canvas is="gwd-bezierpath" width="76" height="154" class="gwd-canvas-ui9y gwd-grp-s4qh" anchors="[[[75,1.25,0],[75,1.25,0],[75,1.25,0]],[[75.25,153.25,0],[75.25,153.25,0],[75.25,153.25,0]],[[65,143.5,0],[65,143.5,0],[65,143.5,0]],[[64.5,11.25,0],[64.5,11.25,0],[64.5,11.25,0]],[[1.5,10.5,0],[1.5,10.5,0],[1.5,10.5,0]],[[1,1,0],[1,1,0],[1,1,0]]]" closed="" stroke-width="2" stroke-color="[0,0,0,1]" fill-color="null" geom-type="5"></canvas>
+      <canvas is="gwd-bezierpath" width="141" height="71" class="gwd-canvas-0tih gwd-grp-s4qh" anchors="[[[1.25,71,0],[1,70.75,0],[1,70.75,0]],[[70.5,1,0],[70.5,1,0],[70.5,1,0]],[[140.75,70.75,0],[140.75,70.75,0],[140.75,70.75,0]]]" closed="" stroke-width="2" stroke-color="[0,0,0,1]" fill-color="[0.4,0.4,0.4,0.3]" geom-type="5"></canvas>
+      <div class="gwd-grp-s4qh gwd-div-s7fs"><span class="gwd-span-jaqt">T E S T I N G</span>
+        <div><span class="gwd-span-f57e">W A T E R S</span>
+        </div>
+      </div>
+    </div>
+  <div class="gwd-div-433q" id="addressBlock" style=""><span class="gwd-span-19em"># 821</span>
+    <div><span class="gwd-span-ok9h">4th A Cross</span>
+    </div>
+    <div><span class="gwd-span-duy6">9th Main</span>
+    </div>
+    <div><span class="gwd-span-8kj4">1st Block</span>
+    </div>
+    <div><span class="gwd-span-d3es">Kalyan Nagar</span>
+    </div>
+    <div><span class="gwd-span-wjcu">Bengaluru</span>
+    </div>
+    <div><span class="gwd-span-h455">560043</span>
+    </div>
+    <div><span class="gwd-span-tsgo"><br></span>
+      <div>
+        <br>
+      </div>
+    </div>
+  </div>
+  <div class="gwd-div-j2tj editable gwd-div-mxo4 gwd-div-yu19 gwd-gen-qv0rgwdanimation" id="remoteButton" style="">
+    <div class="gwd-div-4ab7"><span class="gwd-span-ev6x">Remote Web</span>
+      <br>
+    </div>
+    <div class="gwd-div-4ab7"><span><span class="gwd-span-mly5">Consultancy</span></span>
+    </div>
+    <div class="gwd-div-640p"></div>
+  </div>
+  <div class="gwd-div-j2tj editable gwd-div-a931 gwd-div-j4oq gwd-div-econ" id="addressButton"><span class="gwd-span-txuq">Address</span>
+    <div class="gwd-div-4vnc"></div>
+  </div>
+  <div class="gwd-div-j2tj editable gwd-div-a931 gwd-div-j4oq gwd-div-03md" id="fbButton"><span class="gwd-span-txuq gwd-span-o77v">Facebook</span>
+    <div class="gwd-div-im14"></div>
+  </div>
+  <div class="gwd-div-j2tj editable gwd-div-a931 gwd-div-j4oq gwd-div-03md gwd-div-oocz" id="twitterButton"><span class="gwd-span-txuq gwd-span-o77v gwd-span-qwg3">Twitter</span>
+    <div class="gwd-div-jk4p"></div>
+  </div>
+  <div class="gwd-div-j2tj editable gwd-div-mxo4 gwd-div-35ct gwd-div-g8op gwd-div-g4jg" id="remoteButton_2">Take the plunge
+    <div class="gwd-div-hscw"></div>
+  </div>
+  <div class="gwd-div-j2tj editable gwd-div-mxo4 gwd-div-35ct gwd-div-mszy" id="remoteButton_1"><span class="gwd-span-tcb3">Test the waters</span>
+    <div class="gwd-div-5njy"></div>
+  </div>
+  <div class="gwd-div-j2tj editable gwd-div-mxo4 gwd-div-35ct gwd-div-g8op gwd-div-gshl" id="remoteButton_3">Go the distance
+    <div class="gwd-div-ic0r"></div>
+  </div>
+  <div class="gwd-div-j2tj editable gwd-div-a931 gwd-div-0z7j" id="contactButton"><span class="gwd-span-rn1q">Contact</span>
+    <div class="gwd-div-zgg5"></div>
+  </div>
+  <div class="gwd-div-z7dq" id="twitter"><a class="twitter-timeline" href="https://twitter.com/tstngwtrs" data-widget-id="571321575882776576">Tweets by @tstngwtrs</a>
+    <script>
+      ! function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],
+          p = /^http:/.test(d.location) ? 'http' : 'https';
+        if (!d.getElementById(id)) {
+          js = d.createElement(s);
+          js.id = id;
+          js.src = p + "://platform.twitter.com/widgets.js";
+          fjs.parentNode.insertBefore(js, fjs);
+        }
+      }(document, "script", "twitter-wjs");
+    </script>
+  </div>
+  <gwd_animation_pause_element></gwd_animation_pause_element>
+  <gwd_animation_label_element data-label-name="start" data-label-time="0" data-label-animation-class-name="start"></gwd_animation_label_element>
+
+
+</body></html>
